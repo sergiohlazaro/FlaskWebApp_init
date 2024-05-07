@@ -27,17 +27,23 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" id="login" href="/login">Login</a>
                     <a class="nav-item nav-link" id="sign_up" href="/sign_up">Sign Up</a>
-                    <a class="nav-item nav-link" href="/about">About</a>
-                    <a class="nav-item nav-link" href="/contact">Contact</a>
+                    <a class="nav-item nav-link" id="about" href="/about">About us</a>
+                    <a class="nav-item nav-link" id="contact" href="/contact">Contact us</a>
                     <a class="nav-item nav-link active" href="/">Home</a>
                     <a class="nav-item nav-link" id="login" href="/logout">Logout</a>
                 </div>
             </div>
         </nav>
-        <main>
+        <div class="container" style="flex: 1;">
             {% block content %}{% endblock %}
-        </main>
-        <footer>
+        </div>
+        <footer style="background-color: #333;
+                        color: #fff;
+                        text-align: center;
+                        padding: 20px;
+                        position: fixed;
+                        bottom: 0;
+                        width: 100%;">
             <p style="margin-left: 10px;">&copy; 2024 My Cloud UPM Website</p>
         </footer>
 
