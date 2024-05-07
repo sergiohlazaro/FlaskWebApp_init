@@ -2,8 +2,16 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center; margin-top: 24px;">Welcome to My Cloud UPM Website</h1>
-    <p style="text-align: center; margin-top: 24px;">
-        This is de login page.
-    </p>
+    <h1 style="text-align: center; margin-top: 24px;">Login</h1>
+    <form method="post">
+        <div class="mb-1" style="margin-top: 10px;">
+            <label for="nickname" class="form-label">Nickname</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Enter your nickname" required>
+        </div>
+        <div class="mb-1" style="margin-top: 10px;">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Log in</button>
+    </form>
 {% endblock %}
