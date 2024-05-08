@@ -25,17 +25,20 @@ def sign_up():
         print(name, surname, nickname, email, password, password2)
 
         if len(name) < 2:
+            flash('First name must be at least 2 characters long.', category='error')
             print('First name must be at least 2 characters long.')
         elif len(surname) < 2:
+            flash('Last name must be at least 2 characters long.', category='error')
             print('Last name must be at least 2 characters long.')
-        elif len(nickname) < 2:
-            print('Nickname must be at least 2 characters long.')
         elif password != password2:
+            flash('Passwords do not match.', category='error')
             print('Passwords do not match.')
         elif len(password) < 8:
+            flash('Password must be at least 8 characters long.', category='error')
             print('Password must be at least 8 characters long.')
         else:
             # Add user to database
+            flash('Account created successfuly.', category='success')
             print('Sign up successful.')
 
     return render_template("sign_up.html")
