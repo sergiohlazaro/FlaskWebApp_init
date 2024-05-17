@@ -1,10 +1,11 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template, url_for
+from flask_login import current_user
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def mainw():
-    return render_template("mainw.html")  
+        return render_template("mainw.html")  
 
 @views.route('/home')
 def home():

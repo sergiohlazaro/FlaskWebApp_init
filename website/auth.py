@@ -11,9 +11,26 @@ def login():
     data = request.form
     print(data)
 
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            flash('Email does not exist', category='error')
+            print('Email does not exist')
+        else:
+            if check_password_hash(user.password, password):
+                flash('Logged in successfully', category='success')
+                print('Logged in successfully')
+                return redirect(url_for('views.home'))
+            else:
+                flash('Incorrect password, try again', category='error')
+                print('Incorrect password, try again') 
+
     return render_template("login.html") 
 
-@auth.route('/sign_up', methods=['GET', 'POST'])
+@auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
     data = request.form
     print(data)
@@ -27,7 +44,11 @@ def sign_up():
 
         print(name, surname, email, password, password2)
 
-        if len(name) < 2:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash('Email already exists', category='error')
+            print('Email already exists')
+        elif len(name) < 2:
             flash('First name must be at least 2 characters long', category='error')
             print('First name must be at least 2 characters long')
         elif len(surname) < 2:
@@ -49,11 +70,11 @@ def sign_up():
             print('Sign up successful')
 
             return redirect(url_for('views.home'))
-
+        
     return render_template("sign_up.html")
 
 @auth.route('/logout')
 def logout():
-    return render_template("logout.html")
+    return redirect(url_for('auth.login'))
 
 

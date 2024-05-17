@@ -25,12 +25,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav">
+                    <a class="nav-item nav-link active" id="mainw" href="/">MyCloud</a>
                     <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                    <a class="nav-item nav-link" id="sign_up" href="/sign_up">Sign Up</a>
+                    <a class="nav-item nav-link" id="signup" href="/signup">Signup</a>
                     <a class="nav-item nav-link" id="about" href="/about">About us</a>
                     <a class="nav-item nav-link" id="contact" href="/contact">Contact us</a>
-                    <a class="nav-item nav-link active" href="/home">Home</a>
-                    <a class="nav-item nav-link" id="login" href="/logout">Logout</a>
+                    <a class="nav-item nav-link" id="profile" href="/logout">Logout</a>
                 </div>
             </div>
         </nav>
@@ -54,7 +54,8 @@
         {% endwith %}
 
         <div class="container" style="flex: 1;">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
         <footer style="background-color: #333;
                         color: #fff;
