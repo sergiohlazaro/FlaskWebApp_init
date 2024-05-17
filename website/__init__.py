@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -41,5 +42,14 @@ def create_app():
                              role=admin_role)
             db.session.add(new_admin)
             db.session.commit()
+
+    # Configuracion de LoginManager para evitar acceder a rutas sin estar logueados
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login' # Si no estamos logueados nos redirigirá a la ruta /login
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     return app
