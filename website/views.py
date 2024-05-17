@@ -7,7 +7,7 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def mainw():
-        return render_template("mainw.html")  
+        return render_template("mainw.html", user=current_user)  
 
 @views.route('/home')
 @login_required
