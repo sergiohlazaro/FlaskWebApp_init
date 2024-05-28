@@ -21,3 +21,18 @@ def about():
 @views.route('/contact')
 def contact():
     return render_template("contact.html", user=current_user)
+
+@views.route('/profile')
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)
+
+@views.route('/publications')
+@login_required
+def publications():
+    return render_template("publications.html", user=current_user)
+
+@views.route('/userlist')
+@login_required
+def userlist():
+    return render_template("userlist.html", user=current_user)
