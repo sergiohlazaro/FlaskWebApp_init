@@ -1,8 +1,19 @@
 {% extends "base.html" %}
-{% block title %}User List{% endblock %}
+{% block title %}Lista de usuarios{% endblock %}
 
 {% block content %}
-    <p style="text-align: center; margin-top: 24px;">
-        This is the userlist page.
-    </p>
+<div style="height: 400px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 50px;">
+    <ul class="list-group list-group-flush" id="userlist">
+        {% for user in users %}
+        <li class="list-group-item">
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{ user.email }}</span>
+                {% if user.email != current_user.email %}
+                    <a href="{{ url_for('views.viewuser', email=user.email) }}">Show profile</a>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

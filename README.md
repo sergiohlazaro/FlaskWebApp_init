@@ -6,7 +6,16 @@ Initial Flask web app
 admin@admin.com
 
 admin
+-------------------------
+test@test.com
 
-sergio.hlazaro@alumnos.upm.es
+testtest
+-------------------------
+sergio.hlazaro@alumnos.com
 
-1234567890
+12345678
+-------------------------
+cristian.gay@gmail.com
+
+abcdefghijk
+-------------------------

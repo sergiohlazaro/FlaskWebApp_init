@@ -1,8 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Profile Settings{% endblock %}
+{% block title %}Perfil{% endblock %}
 
 {% block content %}
-    <p style="text-align: center; margin-top: 24px;">
-        This is the profile settings page.
-    </p>
+<div style="max-width: 1000px; margin: auto;">
+    <h1 style="margin-top: 20px;">Perfil de {{ user.name }}</h1>
+    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+        <p>Email: {{ user.email }}</p>
+        <p>Password: {{ user.password }}</p>
+    </div>
+    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+        <h2>Cambiar email</h2>
+        <form id="emailForm" method="post">
+            <label for="new_email">New email:</label>
+            <input type="email" id="new_email" name="new_email" required>
+            <label for="confirm_email">Confirm new email:</label>
+            <input type="email" id="confirm_email" name="confirm_email" required>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; float: right;">Change email</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

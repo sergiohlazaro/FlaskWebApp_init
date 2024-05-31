@@ -1,6 +1,6 @@
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
 from flask_login import login_required, current_user
-from .models import db, Publication
+from .models import db, User, Publication
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -60,7 +60,19 @@ def deletePublication():
 
     return jsonify({})
 
+@views.route('/viewuser/<email>')
+@login_required
+def viewuser(email):
+    user = User.query.filter_by(email=email).first()
+    if user:
+        publications = Publication.query.filter_by(user_id=user.id).all()
+        return render_template("publications.html", user=user, publications=publications)
+    else:
+        # Esto hay que cambiarlo
+        return "<h1>Usuario no encontrado</h1>"
+
 @views.route('/userlist')
 @login_required
 def userlist():
-    return render_template("userlist.html", user=current_user)
+    users = User.query.all()
+    return render_template("userlist.html", users=users, user=current_user)
