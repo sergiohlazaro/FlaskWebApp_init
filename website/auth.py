@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import LoginRecord, User
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 # Para hashear las passwords y solucionar la vulneravilidad de almacenarlas en texto plano en la base de datos
@@ -25,6 +25,12 @@ def login():
                 flash('Logged in successfully', category='success')
                 print('Logged in successfully')
                 login_user(user, remember=True) # remember=True para que se mantenga la sesion iniciada (vuln cookies)
+                
+                # Guardar la dirección IP del usuario
+                ip_address = request.remote_addr
+                login_record = LoginRecord(user_id=user.id, ip_address=ip_address)
+                db.session.add(login_record)
+                db.session.commit()
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again', category='error')
@@ -71,6 +77,12 @@ def sign_up():
             flash('Account created successfuly', category='success')
             print('Sign up successful')
             login_user(new_user, remember=True) # remember=True para que se mantenga la sesion iniciada (vuln cookies)
+            
+            # Guardar la dirección IP del usuario
+            ip_address = request.remote_addr
+            login_record = LoginRecord(user_id=user.id, ip_address=ip_address)
+            db.session.add(login_record)
+            db.session.commit()
             return redirect(url_for('views.home'))
         
     return render_template("sign_up.html", user=current_user)

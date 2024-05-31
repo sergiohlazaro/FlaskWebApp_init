@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div style="max-width: 1500px; margin: auto; max-height: 500px; overflow-y: auto;">
+    {% for user in users %}
+    <div style="border: 1px solid black; padding: 10px; margin-top: 10px; position: relative;">
+        <p>Nombre: {{ user.name }}</p>
+        <p>Correo electrónico: {{ user.email }}</p>
+        <p>Rol: {{ user.role }}</p>
+        <h3>Registros de inicio de sesión</h3>
+        {% for record in user.login_records %}
+        <div style="border: 1px solid black; padding: 10px; margin-top: 10px; position: relative;">
+            <p>Dirección IP: {{ record.ip_address }}</p>
+            <p>Hora de inicio de sesión: {{ record.login_time }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

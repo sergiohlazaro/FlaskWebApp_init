@@ -3,10 +3,10 @@
 
 {% block content %}
 <div style="max-width: 1000px; margin: auto;">
-    <h1 style="margin-top: 20px;">Perfil de {{ user.name }}</h1>
+    <h1 style="margin-top: 20px;">{{ user.name }} {{ user.surname }}</h1>
     <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+        <p>Nombre: {{ user.name }}</p>
         <p>Email: {{ user.email }}</p>
-        <p>Password: {{ user.password }}</p>
     </div>
     <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
         <h2>Cambiar email</h2>

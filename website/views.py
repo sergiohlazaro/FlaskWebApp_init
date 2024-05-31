@@ -1,6 +1,6 @@
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
 from flask_login import login_required, current_user
-from .models import db, User, Publication
+from .models import db, LoginRecord, User, Publication
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -27,6 +27,17 @@ def contact():
 @login_required
 def profile():
     return render_template("profile.html", user=current_user)
+
+@views.route('/admin')
+@login_required
+def admin():
+    if current_user.role != 0:
+        flash('You are not allowed to access this page', category='error')
+        return redirect(url_for('home'))
+    
+    users = User.query.all()
+    login_records = LoginRecord.query.all()
+    return render_template('admin.html', user=current_user, users=users, login_records=login_records)
 
 @views.route('/publications', methods=['GET', 'POST'])
 @login_required
@@ -68,8 +79,9 @@ def viewuser(email):
         publications = Publication.query.filter_by(user_id=user.id).all()
         return render_template("publications.html", user=user, publications=publications)
     else:
-        # Esto hay que cambiarlo
-        return "<h1>Usuario no encontrado</h1>"
+        flash('User not found', category='error')
+        print('User not found')
+        return render_template("userlist.html", user=current_user)
 
 @views.route('/userlist')
 @login_required
