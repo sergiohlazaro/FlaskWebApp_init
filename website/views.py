@@ -1,5 +1,6 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
 from flask_login import login_required, current_user
+from .models import db, Publication
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -27,10 +28,37 @@ def contact():
 def profile():
     return render_template("profile.html", user=current_user)
 
-@views.route('/publications')
+@views.route('/publications', methods=['GET', 'POST'])
 @login_required
 def publications():
+    if request.method == 'POST':
+        publication = request.form.get('publication')
+
+        if len(publication) > 1:
+            new_publication = Publication(content=publication, user_id=current_user.id)
+            db.session.add(new_publication)
+            db.session.commit()
+            
+            flash('Publication added!', category='success')
+            return redirect(url_for('views.publications'))
+        else:
+            flash('The content must contain at least one character', category='error')
+            print('The content must contain at least one character')
+        
     return render_template("publications.html", user=current_user)
+
+@views.route('/deletePublication', methods=['POST'])
+@login_required
+def deletePublication():
+    publication = json.loads(request.data)
+    publicationId = publication['id']
+    publication = Publication.query.get(publicationId)
+    if publication:
+        if publication.user_id == current_user.id:
+            db.session.delete(publication)
+            db.session.commit()
+
+    return jsonify({})
 
 @views.route('/userlist')
 @login_required

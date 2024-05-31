@@ -1,8 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Profile Settings{% endblock %}
+{% block title %}Publications{% endblock %}
 
 {% block content %}
-    <p style="text-align: center; margin-top: 24px;">
-        This is the publications page.
-    </p>
+<div style="height: 400px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 50px;">
+    <ul class="list-group list-group-flush" id="publications">
+        {% for publication in user.publications %}
+        <li class="list-group-item">
+            <div style="display: flex; justify-content: space-between;">
+                <span>{{ publication.date }} {{ publication.content }}</span>
+                <button type="button" class="close" onclick="deletePublication('{{publication.id}}')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<form method="post" style="max-width: 1000px; margin: auto;">
+    <textarea name="publication" class="form-control"></textarea>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Publish</button>
+    </div>
+</form>
 {% endblock %}
