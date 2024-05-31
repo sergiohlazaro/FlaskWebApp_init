@@ -31,8 +31,13 @@ def profile():
         confirm_email = request.form.get('confirm_email')
 
         if new_email != confirm_email:
-            flash('Emails does not match', category='error')
-            print('Emails does not match')
+            flash('Emails do not match', category='error')
+            print('Emails do not match')
+            return render_template('profile.html', user=current_user)
+        existing_user = User.query.filter_by(email=new_email).first()
+        if existing_user:
+            flash('Email already exists', category='error')
+            print('Email already exists')
             return render_template('profile.html', user=current_user)
         else:
             current_user.email = new_email

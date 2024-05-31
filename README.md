@@ -3,7 +3,7 @@ Initial Flask web app
 
 ## Default users for test:
 
-admin@admin.com
+admin2@admin.com
 
 admin
 -------------------------
