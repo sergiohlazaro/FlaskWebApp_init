@@ -23,17 +23,33 @@ def about():
 def contact():
     return render_template("contact.html", user=current_user)
 
-@views.route('/profile')
+@views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template("profile.html", user=current_user)
+    if request.method == 'POST':
+        new_email = request.form.get('new_email')
+        confirm_email = request.form.get('confirm_email')
+
+        if new_email != confirm_email:
+            flash('Emails does not match', category='error')
+            print('Emails does not match')
+            return render_template('profile.html', user=current_user)
+        else:
+            current_user.email = new_email
+            db.session.commit()
+            flash('Email updated successfully', category='success')
+            print('Email updated successfully')
+            return redirect(url_for('views.profile'))
+
+    return render_template('profile.html', user=current_user)
 
 @views.route('/admin')
 @login_required
 def admin():
     if current_user.role != 0:
         flash('You are not allowed to access this page', category='error')
-        return redirect(url_for('home'))
+        print('You are not allowed to access this page')
+        return redirect(url_for('views.home'))
     
     users = User.query.all()
     login_records = LoginRecord.query.all()
@@ -68,8 +84,11 @@ def deletePublication():
         if publication.user_id == current_user.id:
             db.session.delete(publication)
             db.session.commit()
-
-    return jsonify({})
+            return jsonify({})
+    else:
+        flash('Publication not found', category='error')
+        print('Publication not found')
+        return render_template("publications.html", user=current_user)
 
 @views.route('/viewuser/<email>')
 @login_required
