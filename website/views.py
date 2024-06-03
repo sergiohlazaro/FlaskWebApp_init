@@ -1,6 +1,7 @@
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
 from flask_login import login_required, current_user
 from .models import db, LoginRecord, User, Publication
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -29,22 +30,42 @@ def profile():
     if request.method == 'POST':
         new_email = request.form.get('new_email')
         confirm_email = request.form.get('confirm_email')
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
 
-        if new_email != confirm_email:
-            flash('Emails do not match', category='error')
-            print('Emails do not match')
-            return render_template('profile.html', user=current_user)
-        existing_user = User.query.filter_by(email=new_email).first()
-        if existing_user:
-            flash('Email already exists', category='error')
-            print('Email already exists')
-            return render_template('profile.html', user=current_user)
-        else:
-            current_user.email = new_email
-            db.session.commit()
-            flash('Email updated successfully', category='success')
-            print('Email updated successfully')
-            return redirect(url_for('views.profile'))
+        if new_email and confirm_email:
+            if new_email != confirm_email:
+                flash('Emails do not match', category='error')
+                print('Emails do not match')
+                return render_template('profile.html', user=current_user)
+            existing_user = User.query.filter_by(email=new_email).first()
+            if existing_user:
+                flash('Email already exists', category='error')
+                print('Email already exists')
+                return render_template('profile.html', user=current_user)
+            else:
+                current_user.email = new_email
+
+        if current_password and new_password and confirm_password:
+            if not check_password_hash(current_user.password, current_password):
+                flash('Current password is incorrect', category='error')
+                print('Current password is incorrect')
+                return render_template('profile.html', user=current_user)
+            if len(new_password) < 8:
+                flash('New password must be at least 8 characters long', category='error')
+                print('New password must be at least 8 characters long')
+                return render_template('profile.html', user=current_user)
+            if new_password != confirm_password:
+                flash('New passwords do not match', category='error')
+                print('New passwords do not match')
+                return render_template('profile.html', user=current_user)
+            else:
+                current_user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
+
+        db.session.commit()
+        flash('Profile updated', category='success')
+        print('Profile updated')
 
     return render_template('profile.html', user=current_user)
 

@@ -7,9 +7,9 @@ admin2@admin.com
 
 admin
 -------------------------
-test@test.com
+test2@test.com
 
-testtest
+testtest2
 -------------------------
 sergio.hlazaro@alumnos.com
 

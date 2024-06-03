@@ -19,5 +19,19 @@
             <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
         </form>
     </div>
+    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+        <h2>Update password</h2>
+        <form id="passwordForm" method="post">
+            <label for="current_password">Old password:</label>
+            <input type="password" id="current_password" name="current_password" required>
+        </br>
+            <label for="new_password">New password:</label>
+            <input type="password" id="new_password" name="new_password" required>
+        </br>
+            <label for="confirm_password">Confirm password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
