@@ -80,7 +80,7 @@ def sign_up():
             
             # Guardar la dirección IP del usuario
             ip_address = request.remote_addr
-            login_record = LoginRecord(user_id=user.id, ip_address=ip_address)
+            login_record = LoginRecord(user_id=new_user.id, ip_address=ip_address)
             db.session.add(login_record)
             db.session.commit()
             return redirect(url_for('views.home'))

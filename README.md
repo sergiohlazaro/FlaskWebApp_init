@@ -15,7 +15,4 @@ sergio.hlazaro@alumnos.com
 
 12345678
 -------------------------
-cristian.gay@gmail.com
-
-abcdefghijk
 -------------------------
