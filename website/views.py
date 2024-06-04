@@ -81,6 +81,30 @@ def admin():
     login_records = LoginRecord.query.all()
     return render_template('admin.html', user=current_user, users=users, login_records=login_records)
 
+@views.route('/block_user/<int:user_id>', methods=['POST'])
+@login_required
+def block_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        user.is_blocked = True
+        db.session.commit()
+        flash('User blocked', category='success')
+    else:
+        flash('User not found', category='error')
+    return redirect(url_for('views.admin'))
+
+@views.route('/unblock_user/<user_id>', methods=['POST'])
+@login_required
+def unblock_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        user.is_blocked = False
+        db.session.commit()
+        flash('User has been unblocked', category='success')
+    else:
+        flash('User does not exist', category='error')
+    return redirect(url_for('views.admin'))
+
 @views.route('/publications', methods=['GET', 'POST'])
 @login_required
 def publications():

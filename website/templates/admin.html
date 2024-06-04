@@ -2,19 +2,31 @@
 {% block title %}Admin{% endblock %}
 
 {% block content %}
-<div style="max-width: 1500px; margin: auto; max-height: 580px; overflow-y: auto;">
+<div style="max-width: 1500px; margin: auto; margin-top: 20px;max-height: 480px; overflow-y: auto;">
     {% for user in users %}
     <div style="border: 1px solid black; padding: 10px; margin-top: 10px; position: relative;">
         <p style="color: green; font-weight: 800;">Name: {{ user.name }}</p>
         <p style="color: blue; font-weight: 800;">Email: {{ user.email }}</p>
         <p style="color: red; font-weight: 800;">Rol: {{ user.role }}</p>
-        <h4>Login Registers</h4>
-        {% for record in user.login_records %}
-        <div style="border: 1px solid black; padding: 10px; margin-top: 10px; position: relative;">
-            <p>IP: {{ record.ip_address }}</p>
-            <p>Last login: {{ record.login_time }}</p>
+        <p style="color: red; font-weight: 800;">Blocked: {{ user.is_blocked }}</p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#loginRecords{{user.id}}" aria-expanded="false" aria-controls="loginRecords{{user.id}}" onclick="this.style.display='none'">
+            Show Login Records
+        </button>
+        <div class="collapse" id="loginRecords{{user.id}}">
+            <h4>Login Registers</h4>
+            {% for record in user.login_records %}
+            <div style="border: 1px solid black; padding: 10px; margin-top: 10px; position: relative;">
+                <p>IP: {{ record.ip_address }}</p>
+                <p>Last login: {{ record.login_time }}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <form action="{{ url_for('views.block_user', user_id=user.id) }}" method="post" style="padding: 5px; display: inline-block;">
+            <button type="submit" class="btn btn-danger">Block User</button>
+        </form>
+        <form action="{{ url_for('views.unblock_user', user_id=user.id) }}" method="post" style="padding: 5px; display: inline-block;">
+            <button type="submit" class="btn btn-success">Unblock User</button>
+        </form>
     </div>
     {% endfor %}
 </div>

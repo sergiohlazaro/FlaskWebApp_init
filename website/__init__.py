@@ -34,13 +34,31 @@ def create_app():
             admin_name = 'admin'
             admin_surname = 'admin'
             admin_role = 0
+            admin_is_blocked = False
             
             new_admin = User(name=admin_name,
                              surname=admin_surname,
                              email=admin_email,
                              password=generate_password_hash(admin_password),
-                             role=admin_role)
+                             role=admin_role,
+                             is_blocked=admin_is_blocked)
             db.session.add(new_admin)
+            db.session.commit()
+
+            user1_email = 'user1@user.com'
+            user1_password = 'password1'
+            user1_name = 'User'
+            user1_surname = 'One'
+            user1_role = 1
+            user1_is_blocked = False
+            
+            new_user1 = User(name=user1_name,
+                             surname=user1_surname,
+                             email=user1_email,
+                             password=generate_password_hash(user1_password),
+                             role=user1_role,
+                             is_blocked=user1_is_blocked)
+            db.session.add(new_user1)
             db.session.commit()
 
     # Configuracion de LoginManager para evitar acceder a rutas sin estar logueados

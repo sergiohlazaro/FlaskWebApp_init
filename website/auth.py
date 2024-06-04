@@ -20,6 +20,9 @@ def login():
         if not user:
             flash('Email does not exist', category='error')
             print('Email does not exist')
+        elif user.is_blocked:
+            flash('This account has been blocked', category='error')
+            print('This account has been blocked')
         else:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully', category='success')
