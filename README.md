@@ -3,16 +3,17 @@ Initial Flask web app
 
 ## Default users for test:
 
-admin2@admin.com
+-------------------------------
+admin@admin.com
 
 admin
--------------------------
-test2@test.com
+-------------------------------
+user1@user.com -> user_blocked
 
-testtest2
--------------------------
+password1
+-------------------------------
 sergio.hlazaro@alumnos.com
 
 12345678
--------------------------
--------------------------
+-------------------------------
+-------------------------------
