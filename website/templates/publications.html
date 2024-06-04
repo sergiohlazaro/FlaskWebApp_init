@@ -9,7 +9,7 @@
             <div style="display: flex; justify-content: space-between;">
                 <span>{{ publication.date }} {{ publication.content }}</span>
                 {% if user.email == current_user.email %}
-                <button type="button" class="close" onclick="deletePublication('{{publication.id}}')">
+                <button type="button" class="close" style="margin-left: 20px;" onclick="deletePublication('{{publication.id}}')">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 {% endif %}
