@@ -145,7 +145,7 @@ def publications():
             db.session.add(new_publication)
             db.session.commit()
             
-            flash('Publication added!', category='success')
+            flash('Publication added', category='success')
             return redirect(url_for('views.publications'))
         else:
             flash('The content must contain at least one character', category='error')
@@ -163,7 +163,7 @@ def deletePublication():
         if publication.user_id == current_user.id:
             db.session.delete(publication)
             db.session.commit()
-            return jsonify({})
+            return render_template("publications.html", user=current_user)
     else:
         flash('Publication not found', category='error')
         print('Publication not found')

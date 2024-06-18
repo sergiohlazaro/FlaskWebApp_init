@@ -2,7 +2,15 @@
 {% block title %}Publications{% endblock %}
 
 {% block content %}
-<div style="height: 345px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 50px;">
+<div style="margin-right: 20px;">
+    <!-- Mostrar imagen de perfil -->
+    {% if user.profile_pic %}
+        <img src="{{ url_for('static', filename='profile_pics/' + user.profile_pic) }}" alt="Profile Picture" class="profile-pic">
+    {% else %}
+        <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" alt="Default Profile Picture" class="profile-pic">
+    {% endif %}
+</div>
+<div style="height: 345px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 20px;">
     <ul class="list-group list-group-flush" id="publications">
         {% for publication in user.publications %}
         <li class="list-group-item">
@@ -27,4 +35,17 @@
     </div>
     {% endif %}
 </form>
+
+<!-- Añadir estilo CSS para la imagen de perfil -->
+<style>
+    .profile-pic {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border: 1px solid black;
+        padding: 5px;
+        margin-top: 10px;
+        border-radius: 50%; /* Contorno redondo */
+    }
+</style>
 {% endblock %}
