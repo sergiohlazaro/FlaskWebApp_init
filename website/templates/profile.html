@@ -2,35 +2,67 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div style="max-width: 500px; margin: auto;">
-    <h1 style="margin-top: 20px;">{{ user.name }} {{ user.surname }}</h1>
-    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
+<!-- profile.html -->
+<div style="display: flex; align-items: center; margin-top: 10px;">
+    <div style="margin-right: 20px;">
+        <!-- Mostrar imagen de perfil -->
+        {% if user.profile_pic %}
+            <img src="{{ url_for('static', filename='profile_pics/' + user.profile_pic) }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+            <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" alt="Default Profile Picture" class="profile-pic">
+        {% endif %}
+    </div>
+    <div style="border: 1px solid black; padding: 10px;">
+        <p>Name: {{ user.name }} {{ user.surname }}</p>
         <p>Email: {{ user.email }}</p>
     </div>
-    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
-        <h2>Update email</h2>
-        <form id="emailForm" method="post">
-            <label for="new_email">New email:</label>
-            <input type="email" id="new_email" name="new_email" required>
-        </br>
-            <label for="confirm_email">Confirm email:</label>
-            <input type="email" id="confirm_email" name="confirm_email" required>
-            <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
-        </form>
-    </div>
-    <div style="border: 1px solid black; padding: 10px; margin-top: 10px;">
-        <h2>Update password</h2>
-        <form id="passwordForm" method="post">
-            <label for="current_password">Old password:</label>
-            <input type="password" id="current_password" name="current_password" required>
-        </br>
-            <label for="new_password">New password:</label>
-            <input type="password" id="new_password" name="new_password" required>
-        </br>
-            <label for="confirm_password">Confirm password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
+    <div style="border: 1px solid black; padding: 10px; margin-top: 10px; margin-left: 10px; width: 500px;">
+        <h2>Update Profile Picture</h2>
+        <form id="profilePicForm" method="POST" enctype="multipart/form-data">
+            <label for="profile_pic"><!-- --></label>
+            <input type="file" name="profile_pic" id="profile_pic" required>
             <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
         </form>
     </div>
 </div>
+
+<div style="border: 1px solid black; padding: 10px; margin-top: 10px; height: 135px;">
+    <h2>Update email</h2>
+    <form id="emailForm" method="post">
+        <label for="new_email">New email:</label>
+        <input type="email" id="new_email" name="new_email" required>
+    </br>
+        <label for="confirm_email">Confirm email:</label>
+        <input type="email" id="confirm_email" name="confirm_email" required>
+        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
+    </form>
+</div>
+
+<div style="border: 1px solid black; padding: 10px; margin-top: 10px; height: 165px;">
+    <h2>Update Password</h2>
+    <form id="passwordForm" method="post">
+        <label for="current_password">Current Password:</label>
+        <input type="password" id="current_password" name="current_password" required>
+    </br>
+        <label for="new_password">New Password:</label>
+        <input type="password" id="new_password" name="new_password" required>
+    </br>
+        <label for="confirm_password">Confirm New Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
+    </form>
+</div>
+
+<!-- Añadir estilo CSS para la imagen de perfil -->
+<style>
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid black;
+        padding: 5px;
+        margin-top: 10px;
+        border-radius: 50%; /* Contorno redondo */
+    }
+</style>
 {% endblock %}

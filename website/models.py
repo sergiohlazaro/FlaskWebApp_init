@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.Integer, nullable=False, default=1)  # 0 para admin, 1 para usuario regular
     is_blocked = db.Column(db.Boolean, nullable=False, default=False)  # Nuevo campo para indicar si el usuario está bloqueado
+    profile_pic = db.Column(db.String(150), default='default.jpg')
     publications = db.relationship('Publication')
     login_records = db.relationship('LoginRecord')
 

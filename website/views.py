@@ -1,4 +1,6 @@
-from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
+import os
+from werkzeug.utils import secure_filename
+from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash, request
 from flask_login import login_required, current_user
 from .models import db, LoginRecord, User, Publication
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -6,6 +8,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
 views = Blueprint('views', __name__)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+UPLOAD_FOLDER = 'website/static/profile_pics'
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @views.route('/')
 def mainw():
@@ -24,6 +32,11 @@ def about():
 def contact():
     return render_template("contact.html", user=current_user)
 
+@views.route('/feed')
+@login_required
+def feed():
+    return render_template("feed.html", user=current_user)
+
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -34,6 +47,7 @@ def profile():
         new_password = request.form.get('new_password')
         confirm_password = request.form.get('confirm_password')
 
+        # Actualización de email
         if new_email and confirm_email:
             if new_email != confirm_email:
                 flash('Emails do not match', category='error')
@@ -47,6 +61,7 @@ def profile():
             else:
                 current_user.email = new_email
 
+        # Actualización de contraseña
         if current_password and new_password and confirm_password:
             if not check_password_hash(current_user.password, current_password):
                 flash('Current password is incorrect', category='error')
@@ -62,6 +77,20 @@ def profile():
                 return render_template('profile.html', user=current_user)
             else:
                 current_user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
+
+        # Subida de imagen de perfil
+        if 'profile_pic' in request.files:
+            file = request.files['profile_pic']
+            if file.filename == '':
+                flash('No selected file', category='error')
+                return render_template('profile.html', user=current_user)
+            if file and allowed_file(file.filename):
+                if not os.path.exists(UPLOAD_FOLDER):
+                    os.makedirs(UPLOAD_FOLDER)
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(UPLOAD_FOLDER, filename)
+                file.save(filepath)
+                current_user.profile_pic = filename
 
         db.session.commit()
         flash('Profile updated', category='success')
