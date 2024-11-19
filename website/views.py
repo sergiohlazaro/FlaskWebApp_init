@@ -2,7 +2,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash, request
 from flask_login import login_required, current_user
-from .models import db, LoginRecord, User, Publication
+from .models import db, LoginRecord, User, Publication, Message
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
@@ -181,3 +181,66 @@ def viewuser(email):
 def userlist():
     users = User.query.all()
     return render_template("userlist.html", users=users, user=current_user)
+
+@views.route('/messages', methods=['GET'])
+@login_required
+def messages():
+    # Users the current user has communicated with
+    users_contacted = db.session.query(User).join(
+        Message, (Message.sender_id == User.id) | (Message.receiver_id == User.id)
+    ).filter(User.id != current_user.id).distinct().all()
+
+    selected_user_id = request.args.get('user_id', type=int)
+    conversation = None
+
+    if selected_user_id:
+        # Get conversation with the selected user
+        conversation = Message.query.filter(
+            (Message.sender_id == current_user.id) & (Message.receiver_id == selected_user_id) |
+            (Message.receiver_id == current_user.id) & (Message.sender_id == selected_user_id)
+        ).order_by(Message.timestamp).all()
+
+    return render_template(
+        'messages.html',
+        user=current_user,
+        users_contacted=users_contacted,
+        conversation=conversation,
+        selected_user_id=selected_user_id
+    )
+
+@views.route('/send_message', methods=['POST'])
+@login_required
+def send_message():
+    receiver_email = request.form.get('receiver_email')
+    content = request.form.get('content')
+
+    if not receiver_email or not content:
+        flash('Receiver email and content are required!', category='error')
+        return redirect(url_for('views.messages'))
+
+    receiver = User.query.filter_by(email=receiver_email).first()
+    if not receiver:
+        flash('User with this email does not exist!', category='error')
+        return redirect(url_for('views.messages'))
+
+    new_message = Message(sender_id=current_user.id, receiver_id=receiver.id, content=content)
+    db.session.add(new_message)
+    db.session.commit()
+    flash('Message sent!', category='success')
+    return redirect(url_for('views.messages'))
+
+@views.route('/reply_message/<int:message_id>', methods=['POST'])
+@login_required
+def reply_message(message_id):
+    original_message = Message.query.get_or_404(message_id)
+    content = request.form.get('content')
+    if not content:
+        flash('Reply content is required!', category='error')
+        return redirect(url_for('views.messages'))
+
+    reply_message = Message(sender_id=current_user.id, receiver_id=original_message.sender_id, content=content)
+    db.session.add(reply_message)
+    db.session.commit()
+    flash('Reply sent!', category='success')
+    return redirect(url_for('views.messages'))
+

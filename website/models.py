@@ -31,3 +31,15 @@ class LoginRecord(db.Model):
     ip_address = db.Column(db.String(50), nullable=False)
     login_time = db.Column(db.DateTime, default=datetime.now(pytz.timezone('Europe/Madrid')))
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=func.now())
+
+    # Relationships
+    sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')
+    receiver = db.relationship('User', foreign_keys=[receiver_id], backref='received_messages')
+
+
