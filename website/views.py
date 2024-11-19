@@ -32,11 +32,6 @@ def about():
 def contact():
     return render_template("contact.html", user=current_user)
 
-@views.route('/feed')
-@login_required
-def feed():
-    return render_template("feed.html", user=current_user)
-
 @views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
