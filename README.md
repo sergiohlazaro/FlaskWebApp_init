@@ -8,7 +8,7 @@ admin@admin.com
 
 admin
 -------------------------------
-user1@user.com -> user_blocked
+user1@user.com
 
 password1
 -------------------------------
@@ -16,4 +16,7 @@ sergio.hlazaro@alumnos.com
 
 12345678
 -------------------------------
+user2@user.com
+
+87654321
 -------------------------------

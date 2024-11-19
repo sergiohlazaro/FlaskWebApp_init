@@ -10,7 +10,7 @@
         <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" alt="Default Profile Picture" class="profile-pic">
     {% endif %}
 </div>
-<div style="height: 345px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 20px;">
+<div style="height: 550px; overflow-y: auto; padding: 5px; max-width: 1000px; margin: auto; margin-top: 20px;">
     <ul class="list-group list-group-flush" id="publications">
         {% for publication in user.publications %}
         <li class="list-group-item">
