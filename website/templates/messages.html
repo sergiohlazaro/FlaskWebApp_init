@@ -1,48 +1,91 @@
 {% extends "base.html" %}
 {% block title %}Messages{% endblock %}
+
 {% block content %}
-<div style="display: flex; height: 100%; margin-top: 20px;">
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar with Conversations and "Send a New Message" -->
+        <div class="col-md-4 border-end">
+            <div class="mb-4">
+                <h5 class="text-primary">Send a New Message</h5>
+                <form action="{{ url_for('views.send_message') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="receiver_email" class="form-label">Recipient's Email:</label>
+                        <input type="email" name="receiver_email" class="form-control" placeholder="Enter recipient's email" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="content" class="form-control" rows="3" placeholder="Type your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Send</button>
+                </form>
+            </div>
 
-    <!-- Sidebar with Conversations and "Send a New Message" -->
-    <div style="width: 30%; border-right: 1px solid #ccc; padding: 10px;">
-        <h3>Send a New Message</h3>
-        <form action="{{ url_for('views.send_message') }}" method="POST" style="margin-bottom: 20px;">
-            <label for="receiver_email">Recipient's Email:</label><br>
-            <input type="email" name="receiver_email" placeholder="Enter recipient's email" required style="width: 100%; margin-bottom: 10px;"><br>
-            <textarea name="content" placeholder="Type your message..." required style="width: 100%;"></textarea><br>
-            <button type="submit" style="width: 100%;">Send</button>
-        </form>
-
-        <h3>Conversations</h3>
-        <ul>
-            {% for user in users_contacted %}
-                <li>
-                    <a href="{{ url_for('views.messages', user_id=user.id) }}">
-                        {{ user.name }} ({{ user.email }})
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Conversation Area -->
-    <div style="width: 70%; padding: 10px;">
-        <h3>Conversation</h3>
-        {% if conversation %}
-            <ul>
-                {% for message in conversation %}
-                    <li>
-                        <strong>{% if message.sender_id == current_user.id %}You{% else %}{{ message.sender.name }}{% endif %}:</strong>
-                        {{ message.content }}
-                        <small style="color: gray;">({{ message.timestamp }})</small>
+            <div>
+                <h5 class="text-primary">Conversations</h5>
+                <ul class="list-group">
+                    {% for user in users_contacted %}
+                    <li class="list-group-item">
+                        <a href="{{ url_for('views.messages', user_id=user.id) }}" class="text-decoration-none">
+                            <strong>{{ user.name }}</strong> ({{ user.email }})
+                        </a>
                     </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Select a user to view the conversation or start a new message on the left.</p>
-        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Conversation Area -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-3">
+                <h5 class="card-title text-primary">Conversation</h5>
+                <div class="card-body" style="height: 625px; overflow-y: auto;">
+                    {% if conversation %}
+                    <ul class="list-group">
+                        {% for message in conversation %}
+                        <li class="list-group-item">
+                            <strong class="{% if message.sender_id == current_user.id %}text-success{% else %}text-primary{% endif %}">
+                                {% if message.sender_id == current_user.id %}You{% else %}{{ message.sender.name }}{% endif %}:
+                            </strong>
+                            <span>{{ message.content }}</span>
+                            <small class="text-muted d-block">{{ message.timestamp }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">Select a user to view the conversation or start a new message on the left.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
-{% endblock %}
 
+<!-- Custom CSS -->
+<style>
+    .card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 15px;
+    }
+
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    .text-primary {
+        font-weight: 600;
+    }
+
+    .text-success {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}

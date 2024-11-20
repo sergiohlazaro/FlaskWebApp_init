@@ -2,67 +2,110 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<!-- profile.html -->
-<div style="display: flex; align-items: center; margin-top: 10px;">
-    <div style="margin-right: 20px;">
-        <!-- Mostrar imagen de perfil -->
-        {% if user.profile_pic %}
-            <img src="{{ url_for('static', filename='profile_pics/' + user.profile_pic) }}" alt="Profile Picture" class="profile-pic">
-        {% else %}
-            <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" alt="Default Profile Picture" class="profile-pic">
-        {% endif %}
+<div class="container mt-4">
+    <div class="row align-items-center">
+        <!-- Profile Picture Section -->
+        <div class="col-md-4 text-center">
+            {% if user.profile_pic %}
+                <img src="{{ url_for('static', filename='profile_pics/' + user.profile_pic) }}" 
+                     alt="Profile Picture" 
+                     class="profile-pic img-thumbnail">
+            {% else %}
+                <img src="{{ url_for('static', filename='profile_pics/default.jpg') }}" 
+                     alt="Default Profile Picture" 
+                     class="profile-pic img-thumbnail">
+            {% endif %}
+            <h4 class="mt-2">{{ user.name }} {{ user.surname }}</h4>
+        </div>
+
+        <!-- Update Profile Picture Form -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-3 smaller-box">
+                <h5>Update Profile Picture</h5>
+                <form id="profilePicForm" method="POST" enctype="multipart/form-data">
+                    <div class="mb-2">
+                        <label for="profile_pic" class="form-label">Choose a new profile picture</label>
+                        <input type="file" class="form-control form-control-sm" id="profile_pic" name="profile_pic" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div style="border: 1px solid black; padding: 10px; margin-left: 30px;">
-        <p>Name: {{ user.name }} {{ user.surname }}</p>
-        <p>Email: {{ user.email }}</p>
+
+    <!-- Update Email Section -->
+    <div class="card shadow-sm mt-3 p-3 smaller-box">
+        <h5>Update Email</h5>
+        <form id="emailForm" method="POST">
+            <div class="mb-2">
+                <label for="new_email" class="form-label">New Email</label>
+                <input type="email" class="form-control form-control-sm" id="new_email" name="new_email" required>
+            </div>
+            <div class="mb-2">
+                <label for="confirm_email" class="form-label">Confirm Email</label>
+                <input type="email" class="form-control form-control-sm" id="confirm_email" name="confirm_email" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
+        </form>
     </div>
-    <div style="border: 1px solid black; padding: 10px; margin-top: 10px; margin-left: 55px; width: 500px;">
-        <h2>Update Profile Picture</h2>
-        <form id="profilePicForm" method="POST" enctype="multipart/form-data">
-            <label for="profile_pic"><!-- --></label>
-            <input type="file" name="profile_pic" id="profile_pic" required>
-            <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
+
+    <!-- Update Password Section -->
+    <div class="card shadow-sm mt-3 p-3 smaller-box">
+        <h5>Update Password</h5>
+        <form id="passwordForm" method="POST">
+            <div class="mb-2">
+                <label for="current_password" class="form-label">Current Password</label>
+                <input type="password" class="form-control form-control-sm" id="current_password" name="current_password" required>
+            </div>
+            <div class="mb-2">
+                <label for="new_password" class="form-label">New Password</label>
+                <input type="password" class="form-control form-control-sm" id="new_password" name="new_password" required>
+            </div>
+            <div class="mb-2">
+                <label for="confirm_password" class="form-label">Confirm New Password</label>
+                <input type="password" class="form-control form-control-sm" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
         </form>
     </div>
 </div>
 
-<div style="border: 1px solid black; padding: 10px; margin-top: 30px; height: 135px;">
-    <h2>Update email</h2>
-    <form id="emailForm" method="post">
-        <label for="new_email">New email:</label>
-        <input type="email" id="new_email" name="new_email" required>
-    </br>
-        <label for="confirm_email">Confirm email:</label>
-        <input type="email" id="confirm_email" name="confirm_email" required>
-        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
-    </form>
-</div>
-
-<div style="border: 1px solid black; padding: 10px; margin-top: 30px; height: 165px;">
-    <h2>Update Password</h2>
-    <form id="passwordForm" method="post">
-        <label for="current_password">Current Password:</label>
-        <input type="password" id="current_password" name="current_password" required>
-    </br>
-        <label for="new_password">New Password:</label>
-        <input type="password" id="new_password" name="new_password" required>
-    </br>
-        <label for="confirm_password">Confirm New Password:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px; float: right;">Update</button>
-    </form>
-</div>
-
-<!-- Añadir estilo CSS para la imagen de perfil -->
+<!-- Custom CSS for Profile Page -->
 <style>
     .profile-pic {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
-        border: 1px solid black;
-        padding: 5px;
-        margin-top: 10px;
-        border-radius: 50%; /* Contorno redondo */
+        border-radius: 50%;
+    }
+
+    .card.smaller-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        max-width: 600px;
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    .btn-sm {
+        padding: 4px 10px;
+    }
+
+    .form-control-sm {
+        font-size: 0.85rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .card h5 {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
     }
 </style>
 {% endblock %}
+

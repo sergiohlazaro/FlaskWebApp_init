@@ -31,6 +31,7 @@ class LoginRecord(db.Model):
     ip_address = db.Column(db.String(50), nullable=False)
     login_time = db.Column(db.DateTime, default=datetime.now(pytz.timezone('Europe/Madrid')))
 
+# Definicion del modelo de mensajes
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
