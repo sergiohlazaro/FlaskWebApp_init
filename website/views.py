@@ -215,7 +215,7 @@ def send_message():
     content = request.form.get('content')
 
     if not receiver_email or not content:
-        flash('Receiver email and content are required!', category='error')
+        flash('Receiver email and content are required', category='error')
         return redirect(url_for('views.messages'))
 
     receiver = User.query.filter_by(email=receiver_email).first()
@@ -226,7 +226,7 @@ def send_message():
     new_message = Message(sender_id=current_user.id, receiver_id=receiver.id, content=content)
     db.session.add(new_message)
     db.session.commit()
-    flash('Message sent!', category='success')
+    flash('Message sent', category='success')
     return redirect(url_for('views.messages'))
 
 @views.route('/reply_message/<int:message_id>', methods=['POST'])
@@ -235,12 +235,12 @@ def reply_message(message_id):
     original_message = Message.query.get_or_404(message_id)
     content = request.form.get('content')
     if not content:
-        flash('Reply content is required!', category='error')
+        flash('Reply content is required', category='error')
         return redirect(url_for('views.messages'))
 
     reply_message = Message(sender_id=current_user.id, receiver_id=original_message.sender_id, content=content)
     db.session.add(reply_message)
     db.session.commit()
-    flash('Reply sent!', category='success')
+    flash('Reply sent', category='success')
     return redirect(url_for('views.messages'))
 
