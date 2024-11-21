@@ -93,6 +93,19 @@ def profile():
 
     return render_template('profile.html', user=current_user)
 
+@views.route('/update_bio', methods=['POST'])
+@login_required
+def update_bio():
+    bio = request.form.get('bio')
+    if len(bio) > 500:  # Example limit
+        flash("Bio too long. Maximum 500 characters.", "danger")
+        return render_template('profile.html', user=current_user)
+    
+    current_user.bio = bio
+    db.session.commit()
+    flash("Your bio has been updated", "success")
+    return render_template('profile.html', user=current_user)
+
 @views.route('/admin')
 @login_required
 def admin():

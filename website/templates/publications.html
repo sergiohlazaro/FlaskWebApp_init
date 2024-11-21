@@ -15,42 +15,81 @@
         <div>
             <h4 class="text-dark mb-1">{{ user.name }}</h4>
             <p class="text-muted mb-0">{{ user.email }}</p>
+            <p class="text-muted mt-1">{{ user.bio }}</p>
         </div>
     </div>
 
-    <!-- Publications List -->
-    <div class="card shadow-sm p-3">
-        <h5 class="card-title">Publications</h5>
-        <div style="height: 450px; overflow-y: auto;"> <!-- Reduced height -->
-            <ul class="list-group list-group-flush" id="publications">
-                {% for publication in user.publications %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <small class="text-muted">{{ publication.date }}</small>
-                        <p class="mb-0 text-dark">{{ publication.content }}</p>
+    <div class="row">
+        <!-- Publications List -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-3 mb-4">
+                <h5 class="card-title">Publications</h5>
+                <div style="height: 600px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush" id="publications">
+                        {% for publication in user.publications %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">{{ publication.date }}</small>
+                                <p class="mb-0 text-dark">{{ publication.content }}</p>
+                            </div>
+                            {% if user.email == current_user.email %}
+                            <button type="button" class="btn btn-sm btn-danger" onclick="deletePublication('{{publication.id}}')">
+                                &times;
+                            </button>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        {% if user.email == current_user.email %}
+        <!-- Publish Form (Visible only to the user) -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5 class="card-title">Publish Something</h5>
+                <form method="post">
+                    <div class="mb-3">
+                        <textarea name="publication" class="form-control" rows="6" placeholder="What's on your mind?"></textarea>
                     </div>
-                    {% if user.email == current_user.email %}
-                    <button type="button" class="btn btn-sm btn-danger" onclick="deletePublication('{{publication.id}}')">
-                        &times;
-                    </button>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-sm">Publish</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        {% else %}
+        <!-- About the User (Visible when viewing another user's profile) -->
+        <div class="col-md-4 d-flex justify-content-end" style="height: 673px;">
+            <div class="card shadow-sm p-3" style="width: 100%;">
+                <h5 class="card-title">About {{ user.name }}</h5>
+                <p class="text-muted mb-3">Total Publications: {{ user.publications|length }}</p>
+                
+                <!-- Social Media Links -->
+                <h6 style="margin-top: 5px;">Connect with {{ user.name }}</h6>
+                <ul class="list-group" style="margin-top: 5px;">
+                    <li class="list-group-item">
+                        <a href="https://twitter.com/{{ user.twitter }}" target="_blank" class="text-primary">
+                            Twitter
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.linkedin.com/in/{{ user.linkedin }}" target="_blank" class="text-primary">
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.instagram.com/{{ user.instagram }}" target="_blank" class="text-primary">
+                            Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
     </div>
-
-    <!-- Publish Form -->
-    {% if user.email == current_user.email %}
-    <form method="post" class="mt-4">
-        <div class="mb-3">
-            <textarea name="publication" class="form-control" rows="3" placeholder="What's on your mind?"></textarea>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-sm">Publish</button> <!-- Reduced button size -->
-        </div>
-    </form>
-    {% endif %}
 </div>
 
 <!-- Custom CSS -->
@@ -70,11 +109,16 @@
 
     .list-group-item {
         border: none;
-        padding: 15px;
+        padding: 10px;
     }
 
-    .list-group-item:hover {
-        background-color: #f8f9fa;
+    .list-group-item a {
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .list-group-item a:hover {
+        text-decoration: underline;
     }
 
     .btn-danger {
@@ -84,9 +128,14 @@
     }
 
     .btn-primary.btn-sm {
-        font-size: 0.9rem; /* Smaller font size */
-        padding: 6px 12px; /* Reduced padding */
+        font-size: 0.9rem;
+        padding: 6px 12px;
         border-radius: 5px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
     }
 </style>
 {% endblock %}

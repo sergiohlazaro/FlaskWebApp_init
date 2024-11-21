@@ -1,9 +1,14 @@
 # FlaskWebApp_init
 Initial Flask web app
 
+# To correct:
+
+- admin.html in the list, the users with roles administrator, can block their self.
+- message.html in the conversation list, show's the conversation of all users but can't see other's conversations.
+- When see other's publications, the links to other social media don't work.
+
 ## Default users for test:
 
--------------------------------
 admin.admin@admin.com
 
 adminadmin
@@ -12,20 +17,12 @@ user1@user.com
 
 password1
 -------------------------------
-user2@user.com
 
-password2
--------------------------------
-user22@user.com
-
-pasword22
 -------------------------------
 user3@user.com
 
 password3
 -------------------------------
-user44@user.com
-
-0987654321
 -------------------------------
+
 -------------------------------

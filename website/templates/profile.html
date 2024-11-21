@@ -33,40 +33,60 @@
         </div>
     </div>
 
-    <!-- Update Email Section -->
-    <div class="card shadow-sm mt-3 p-3 smaller-box">
-        <h5>Update Email</h5>
-        <form id="emailForm" method="POST">
-            <div class="mb-2">
-                <label for="new_email" class="form-label">New Email</label>
-                <input type="email" class="form-control form-control-sm" id="new_email" name="new_email" required>
+    <!-- Update Email and Password (Left) and Update Bio (Right) -->
+    <div class="row mt-3">
+        <!-- Left Column -->
+        <div class="col-md-6">
+            <!-- Update Email Section -->
+            <div class="card shadow-sm p-3 smaller-box mb-3">
+                <h5>Update Email</h5>
+                <form id="emailForm" method="POST">
+                    <div class="mb-2">
+                        <label for="new_email" class="form-label">New Email</label>
+                        <input type="email" class="form-control form-control-sm" id="new_email" name="new_email" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="confirm_email" class="form-label">Confirm Email</label>
+                        <input type="email" class="form-control form-control-sm" id="confirm_email" name="confirm_email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
+                </form>
             </div>
-            <div class="mb-2">
-                <label for="confirm_email" class="form-label">Confirm Email</label>
-                <input type="email" class="form-control form-control-sm" id="confirm_email" name="confirm_email" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
-        </form>
-    </div>
 
-    <!-- Update Password Section -->
-    <div class="card shadow-sm mt-3 p-3 smaller-box">
-        <h5>Update Password</h5>
-        <form id="passwordForm" method="POST">
-            <div class="mb-2">
-                <label for="current_password" class="form-label">Current Password</label>
-                <input type="password" class="form-control form-control-sm" id="current_password" name="current_password" required>
+            <!-- Update Password Section -->
+            <div class="card shadow-sm p-3 smaller-box">
+                <h5>Update Password</h5>
+                <form id="passwordForm" method="POST">
+                    <div class="mb-2">
+                        <label for="current_password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control form-control-sm" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control form-control-sm" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="confirm_password" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control form-control-sm" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
+                </form>
             </div>
-            <div class="mb-2">
-                <label for="new_password" class="form-label">New Password</label>
-                <input type="password" class="form-control form-control-sm" id="new_password" name="new_password" required>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+            <!-- Update Bio Section -->
+            <div class="card shadow-sm p-3 larger-box">
+                <h5>Update Bio</h5>
+                <form action="{{ url_for('views.update_bio') }}" method="POST">
+                    <div class="mb-3">
+                        <textarea name="bio" class="form-control" rows="8" placeholder="Tell us about yourself">{{ user.bio }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm float-end">Save</button>
+                </form>
             </div>
-            <div class="mb-2">
-                <label for="confirm_password" class="form-label">Confirm New Password</label>
-                <input type="password" class="form-control form-control-sm" id="confirm_password" name="confirm_password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -83,7 +103,13 @@
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 10px;
-        max-width: 600px;
+    }
+
+    .card.larger-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        min-height: 300px; /* Increased height for bio */
     }
 
     .btn {
@@ -108,4 +134,3 @@
     }
 </style>
 {% endblock %}
-

@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     surname = db.Column(db.String(100), unique=False, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    bio = db.Column(db.Text, default="This is my bio.")  # Bio field
     role = db.Column(db.Integer, nullable=False, default=1)  # 0 para admin, 1 para usuario regular
     is_blocked = db.Column(db.Boolean, nullable=False, default=False)  # Nuevo campo para indicar si el usuario está bloqueado
     profile_pic = db.Column(db.String(150), default='default.jpg')
