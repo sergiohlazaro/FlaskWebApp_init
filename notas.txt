@@ -1,0 +1,2 @@
+Errores en sign_up al crear un usuario con el mismo nombre da error, debería dar error con el email.
+
