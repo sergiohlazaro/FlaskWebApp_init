@@ -106,6 +106,20 @@ def update_bio():
     flash("Your bio has been updated", "success")
     return render_template('profile.html', user=current_user)
 
+@views.route('/update_social_links', methods=['POST'])
+@login_required
+def update_social_links():
+    twitter = request.form.get('twitter')
+    linkedin = request.form.get('linkedin')
+
+    current_user.twitter = twitter
+    current_user.linkedin = linkedin
+
+    db.session.commit()
+    flash("Social media links updated successfully!", "success")
+    return render_template('profile.html', user=current_user)
+
+
 @views.route('/admin')
 @login_required
 def admin():
