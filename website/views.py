@@ -97,14 +97,14 @@ def profile():
 @login_required
 def update_bio():
     bio = request.form.get('bio')
-    if len(bio) > 500:  # Example limit
-        flash("Bio too long. Maximum 500 characters.", "danger")
+    if len(bio) > 100:  # Example limit
+        flash("Bio too long. Maximum 100 characters.", category='error')
         return render_template('profile.html', user=current_user)
-    
-    current_user.bio = bio
-    db.session.commit()
-    flash("Your bio has been updated", "success")
-    return render_template('profile.html', user=current_user)
+    else:
+        current_user.bio = bio
+        db.session.commit()
+        flash("Your bio has been updated", "success")
+        return render_template('profile.html', user=current_user)
 
 @views.route('/update_social_links', methods=['POST'])
 @login_required
