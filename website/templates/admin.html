@@ -27,12 +27,17 @@
                             Show Login Records
                         </button>
                         <div class="d-flex justify-content-end gap-2">
+                            <!-- Block/Unblock Forms -->
+                            {% if user.id != current_user.id %}
                             <form action="{{ url_for('views.block_user', user_id=user.id) }}" method="post">
                                 <button type="submit" class="btn btn-sm btn-danger">Block User</button>
                             </form>
                             <form action="{{ url_for('views.unblock_user', user_id=user.id) }}" method="post">
                                 <button type="submit" class="btn btn-sm btn-success">Unblock User</button>
                             </form>
+                            {% else %}
+                            <span class="badge bg-secondary">You</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -92,13 +97,14 @@
         background-color: #fff; /* Ensure pure white background */
     }
 
-    .card-body {
-        background-color: #fff; /* Consistent white background inside the card */
-    }
-
     .d-flex.gap-2 > form {
         margin: 0;
     }
+
+    .badge.bg-secondary {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+        border-radius: 8px;
+    }
 </style>
 {% endblock %}
-

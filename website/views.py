@@ -128,7 +128,8 @@ def admin():
         print('You are not allowed to access this page')
         return redirect(url_for('views.home'))
     
-    users = User.query.all()
+    # Fetch all users except the current logged-in admin
+    users = User.query.filter(User.id != current_user.id).all()
     login_records = LoginRecord.query.all()
     return render_template('admin.html', user=current_user, users=users, login_records=login_records)
 
@@ -206,7 +207,8 @@ def viewuser(email):
 @views.route('/userlist')
 @login_required
 def userlist():
-    users = User.query.all()
+    # Fetch all users except the current logged-in user
+    users = User.query.filter(User.id != current_user.id).all()
     return render_template("userlist.html", users=users, user=current_user)
 
 @views.route('/messages', methods=['GET'])
