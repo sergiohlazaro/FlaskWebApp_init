@@ -255,4 +255,3 @@ def send_message():
     db.session.commit()
     flash('Message sent', category='success')
     return redirect(url_for('views.messages'))
-
