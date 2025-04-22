@@ -38,8 +38,8 @@ def contact():
 @login_required
 def profile():
     if request.method == 'POST':
-        new_email = request.form.get('new_email')
-        confirm_email = request.form.get('confirm_email')
+        new_email = bleach.clean(request.form.get('new_email'))
+        confirm_email = bleach.clean(request.form.get('confirm_email'))
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
         confirm_password = request.form.get('confirm_password')
@@ -115,8 +115,8 @@ def update_social_links():
     twitter = request.form.get('twitter')
     linkedin = request.form.get('linkedin')
 
-    current_user.twitter = twitter
-    current_user.linkedin = linkedin
+    current_user.twitter = bleach.clean(twitter)
+    current_user.linkedin = bleach.clean(linkedin)
 
     db.session.commit()
     flash("Social media links updated successfully!", "success")
