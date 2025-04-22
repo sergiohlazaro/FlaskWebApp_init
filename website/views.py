@@ -7,6 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import or_, and_
 import bleach
 import imghdr
+import logging
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -63,6 +64,8 @@ def profile():
                 return render_template('profile.html', user=current_user)
             else:
                 current_user.email = new_email
+                logging.info(f"User {current_user.email} updated their email to {new_email}")
+
 
         # --- Actualización de contraseña ---
         if current_password and new_password and confirm_password:
@@ -80,6 +83,7 @@ def profile():
                 return render_template('profile.html', user=current_user)
             else:
                 current_user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
+                logging.info(f"User {current_user.email} updated their password")
 
         # --- Subida de imagen de perfil ---
         if 'profile_pic' in request.files:
@@ -211,10 +215,13 @@ def deletePublication():
             db.session.delete(publication)
             db.session.commit()
             flash('Publication deleted successfully', category='success')
+            logging.info(f"User {current_user.email} deleted publication ID {publication_id}")
         else:
             flash('You are not authorized to delete this publication', category='error')
+            logging.warning(f"Unauthorized delete attempt by {current_user.email} for publication ID {publication_id}")
     else:
         flash('Publication not found', category='error')
+        logging.warning(f"User {current_user.email} attempted to delete non-existent publication ID {publication_id}")
 
     return redirect(url_for('views.publications'))
 
@@ -289,5 +296,6 @@ def send_message():
     new_message = Message(sender_id=current_user.id, receiver_id=receiver.id, content=content)
     db.session.add(new_message)
     db.session.commit()
+    logging.info(f"User {current_user.email} sent a message to {receiver.email}")
     flash('Message sent', category='success')
     return redirect(url_for('views.messages'))

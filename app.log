@@ -1,0 +1,53 @@
+2025-04-22 15:31:13,714 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 15:31:13,715 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-22 15:31:13,716 [INFO]  * Restarting with stat
+2025-04-22 15:31:14,267 [WARNING]  * Debugger is active!
+2025-04-22 15:31:14,268 [INFO]  * Debugger PIN: 669-644-573
+2025-04-22 15:31:19,781 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:19] "GET / HTTP/1.1" 200 -
+2025-04-22 15:31:20,109 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:20] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:20,220 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-22 15:31:22,426 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:22] "GET /login HTTP/1.1" 200 -
+2025-04-22 15:31:22,467 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:22] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:27,076 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:27] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-22 15:31:27,092 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:27] "GET /home HTTP/1.1" 200 -
+2025-04-22 15:31:27,133 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:27] "[36mGET /static/upm_logo.jpg HTTP/1.1[0m" 304 -
+2025-04-22 15:31:27,137 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:27] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:29,931 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:29] "GET /publications HTTP/1.1" 200 -
+2025-04-22 15:31:30,031 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:30] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 15:31:30,044 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:30] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:31,594 [INFO] User admin@admin.com deleted publication ID 1
+2025-04-22 15:31:31,596 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:31] "[32mPOST /deletePublication HTTP/1.1[0m" 302 -
+2025-04-22 15:31:31,619 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:31] "GET /publications HTTP/1.1" 200 -
+2025-04-22 15:31:31,692 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:31] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 15:31:31,717 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:31] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:33,585 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:33] "GET /messages HTTP/1.1" 200 -
+2025-04-22 15:31:33,645 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:33] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:34,698 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:34] "GET /userlist HTTP/1.1" 200 -
+2025-04-22 15:31:34,733 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:34] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:38,598 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:38] "GET /messages HTTP/1.1" 200 -
+2025-04-22 15:31:38,663 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:38] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:49,320 [INFO] User admin@admin.com sent a message to test2@test.com
+2025-04-22 15:31:49,322 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:49] "[32mPOST /send_message HTTP/1.1[0m" 302 -
+2025-04-22 15:31:49,330 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:49] "GET /messages HTTP/1.1" 200 -
+2025-04-22 15:31:49,355 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:49] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:52,873 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:52] "GET /messages?user_id=8 HTTP/1.1" 200 -
+2025-04-22 15:31:52,901 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:52] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:55,596 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:55] "GET /userlist HTTP/1.1" 200 -
+2025-04-22 15:31:55,627 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:55] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:56,671 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:56] "GET /viewuser/user2@user.com HTTP/1.1" 200 -
+2025-04-22 15:31:56,710 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:56] "[36mGET /static/profile_pics/default.jpg HTTP/1.1[0m" 304 -
+2025-04-22 15:31:56,714 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:56] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:31:59,139 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:59] "GET /userlist HTTP/1.1" 200 -
+2025-04-22 15:31:59,249 [INFO] 127.0.0.1 - - [22/Apr/2025 15:31:59] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:32:00,361 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:00] "GET /viewuser/sergio.hlazaro@alumnos.upm.es HTTP/1.1" 200 -
+2025-04-22 15:32:00,423 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:00] "[36mGET /static/profile_pics/killsleep.png HTTP/1.1[0m" 304 -
+2025-04-22 15:32:00,434 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:00] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:32:03,422 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:03] "GET /profile HTTP/1.1" 200 -
+2025-04-22 15:32:03,486 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:03] "GET /profile HTTP/1.1" 200 -
+2025-04-22 15:32:03,517 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:03] "GET /profile HTTP/1.1" 200 -
+2025-04-22 15:32:03,563 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:03] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 15:32:03,569 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:03] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 15:32:12,949 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-04-22 15:32:12,958 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "GET /login HTTP/1.1" 200 -
+2025-04-22 15:32:12,996 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "[36mGET /static/index.js HTTP/1.1[0m" 304 -

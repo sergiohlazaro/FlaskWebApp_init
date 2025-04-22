@@ -2,9 +2,20 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import LoginManager
 from flask_wtf import CSRFProtect
+import logging
+
+# Rate Limiting
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+
+# Limiter configurado con 5 solicitudes por hora como límite global por IP
+limiter = Limiter(
+    get_remote_address,
+    default_limits=["5 per hour"]
+)
 
 def create_app():
     app = Flask(__name__)
@@ -12,10 +23,11 @@ def create_app():
     csrf = CSRFProtect()
     csrf.init_app(app)
 
+    limiter.init_app(app)  # ← Inicialización del rate limiting
+
     app.config['SECRET_KEY'] = 'mysecretkeymysecretkey'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SESSION_COOKIE_SECURE'] = True # Only for HTTPS
-    # Cookie secure only works if the server is configured for HTTPS
+    app.config['SESSION_COOKIE_SECURE'] = True  # Solo en producción con HTTPS
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
@@ -26,15 +38,12 @@ def create_app():
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/') 
-    # This is the URL prefix for the auth blueprint, for example: /auth/login
-    # app.register_blueprint(auth, url_prefix='/auth') 
 
     from .models import User
     with app.app_context():
         db.create_all()
 
-        # Add admin user if it doesn't exist
-        from .models import User
+        # Añadir admin por defecto si no existe
         admin_user = User.query.filter_by(role=0).first()
         if not admin_user:
             from werkzeug.security import generate_password_hash
@@ -70,10 +79,15 @@ def create_app():
             db.session.add(new_user1)
             db.session.commit()
 
-    # Configuracion de LoginManager para evitar acceder a rutas sin estar logueados
+    # Configuración de login
     login_manager = LoginManager()
-    login_manager.login_view = 'auth.login' # Si no estamos logueados nos redirigirá a la ruta /login
+    login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+    logging.basicConfig(
+        filename='app.log',
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(message)s'
+    )
 
     @login_manager.user_loader
     def load_user(id):
