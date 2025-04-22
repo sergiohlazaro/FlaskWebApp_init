@@ -8,6 +8,7 @@ from sqlalchemy import or_, and_
 import bleach
 import imghdr
 import logging
+from PIL import Image
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -103,8 +104,14 @@ def profile():
 
                     filename = secure_filename(file.filename)
                     filepath = os.path.join(UPLOAD_FOLDER, filename)
-                    file.save(filepath)
+
+                    # Redimensionar imagen antes de guardar
+                    image = Image.open(file)
+                    image.thumbnail((300, 300))  # Limita tamaño a 300x300
+                    image.save(filepath)  # Guarda la imagen redimensionada
+
                     current_user.profile_pic = filename
+
                 else:
                     flash('Invalid image file type.', category='error')
                     print('Rejected file: not a valid image.')
