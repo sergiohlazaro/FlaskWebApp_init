@@ -29,10 +29,12 @@
                         <div class="d-flex justify-content-end gap-2">
                             <!-- Block/Unblock Forms -->
                             {% if user.id != current_user.id %}
-                            <form action="{{ url_for('views.block_user', user_id=user.id) }}" method="post">
+                            <form method="POST" action="{{ url_for('views.block_user', user_id=user.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="btn btn-sm btn-danger">Block User</button>
                             </form>
-                            <form action="{{ url_for('views.unblock_user', user_id=user.id) }}" method="post">
+                            <form method="POST" action="{{ url_for('views.unblock_user', user_id=user.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="btn btn-sm btn-success">Unblock User</button>
                             </form>
                             {% else %}

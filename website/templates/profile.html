@@ -22,7 +22,8 @@
         <div class="col-md-8">
             <div class="card shadow-sm p-3 smaller-box">
                 <h5>Update Profile Picture</h5>
-                <form id="profilePicForm" method="POST" enctype="multipart/form-data">
+                <form method="POST" id="profilePicForm" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-2">
                         <label for="profile_pic" class="form-label">Choose a new profile picture</label>
                         <input type="file" class="form-control form-control-sm" id="profile_pic" name="profile_pic" required>
@@ -39,7 +40,8 @@
             <!-- Update Email Section -->
             <div class="card shadow-sm p-3 smaller-box mb-3">
                 <h5>Update Email</h5>
-                <form id="emailForm" method="POST">
+                <form method="POST" id="emailForm">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-2">
                         <label for="new_email" class="form-label">New Email</label>
                         <input type="email" class="form-control form-control-sm" id="new_email" name="new_email" required>
@@ -55,7 +57,8 @@
             <!-- Update Password Section -->
             <div class="card shadow-sm p-3 smaller-box">
                 <h5>Update Password</h5>
-                <form id="passwordForm" method="POST">
+                <form method="POST" id="passwordForm">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-2">
                         <label for="current_password" class="form-label">Current Password</label>
                         <input type="password" class="form-control form-control-sm" id="current_password" name="current_password" required>
@@ -78,7 +81,8 @@
             <!-- Update Bio Section -->
             <div class="card shadow-sm p-3 larger-box">
                 <h5>Update Bio</h5>
-                <form action="{{ url_for('views.update_bio') }}" method="POST">
+                <form method="POST" action="{{ url_for('views.update_bio') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <textarea name="bio" class="form-control" rows="8" placeholder="Tell us about yourself">{{ user.bio }}</textarea>
                     </div>
@@ -88,7 +92,8 @@
 
             <!-- Update Social Media Links Section -->
             <div class="card shadow-sm p-3 smaller-social-box mt-3">
-                <form action="{{ url_for('views.update_social_links') }}" method="POST">
+                <form method="POST" action="{{ url_for('views.update_social_links') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <label for="twitter" class="form-label">Twitter Username</label>
                         <input type="text" name="twitter" id="twitter" class="form-control" placeholder="your_username" value="{{ user.twitter }}">

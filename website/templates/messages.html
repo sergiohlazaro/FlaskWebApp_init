@@ -8,7 +8,8 @@
         <div class="col-md-4 border-end">
             <div class="mb-4">
                 <h5 class="text-primary">Send a New Message</h5>
-                <form action="{{ url_for('views.send_message') }}" method="POST">
+                <form method="POST" action="{{ url_for('views.send_message') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <label for="receiver_email" class="form-label">Recipient's Email:</label>
                         <input type="email" name="receiver_email" class="form-control" placeholder="Enter recipient's email" required>
