@@ -6,6 +6,7 @@ from .models import db, LoginRecord, User, Publication, Message
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import or_, and_
 import bleach
+import imghdr
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -38,13 +39,18 @@ def contact():
 @login_required
 def profile():
     if request.method == 'POST':
-        new_email = bleach.clean(request.form.get('new_email'))
-        confirm_email = bleach.clean(request.form.get('confirm_email'))
+        # Limpieza segura de emails
+        new_email_raw = request.form.get('new_email')
+        confirm_email_raw = request.form.get('confirm_email')
+
+        new_email = bleach.clean(new_email_raw) if new_email_raw else ''
+        confirm_email = bleach.clean(confirm_email_raw) if confirm_email_raw else ''
+
         current_password = request.form.get('current_password')
         new_password = request.form.get('new_password')
         confirm_password = request.form.get('confirm_password')
 
-        # Actualización de email
+        # --- Actualización de email ---
         if new_email and confirm_email:
             if new_email != confirm_email:
                 flash('Emails do not match', category='error')
@@ -58,7 +64,7 @@ def profile():
             else:
                 current_user.email = new_email
 
-        # Actualización de contraseña
+        # --- Actualización de contraseña ---
         if current_password and new_password and confirm_password:
             if not check_password_hash(current_user.password, current_password):
                 flash('Current password is incorrect', category='error')
@@ -75,25 +81,39 @@ def profile():
             else:
                 current_user.password = generate_password_hash(new_password, method='pbkdf2:sha256')
 
-        # Subida de imagen de perfil
+        # --- Subida de imagen de perfil ---
         if 'profile_pic' in request.files:
             file = request.files['profile_pic']
             if file.filename == '':
                 flash('No selected file', category='error')
                 return render_template('profile.html', user=current_user)
             if file and allowed_file(file.filename):
-                if not os.path.exists(UPLOAD_FOLDER):
-                    os.makedirs(UPLOAD_FOLDER)
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
-                file.save(filepath)
-                current_user.profile_pic = filename
+                # Leer bytes para validación del tipo real
+                file_bytes = file.read()
+                file.seek(0)
 
+                detected_type = imghdr.what(None, h=file_bytes)
+
+                if detected_type in ALLOWED_EXTENSIONS:
+                    if not os.path.exists(UPLOAD_FOLDER):
+                        os.makedirs(UPLOAD_FOLDER)
+
+                    filename = secure_filename(file.filename)
+                    filepath = os.path.join(UPLOAD_FOLDER, filename)
+                    file.save(filepath)
+                    current_user.profile_pic = filename
+                else:
+                    flash('Invalid image file type.', category='error')
+                    print('Rejected file: not a valid image.')
+                    return render_template('profile.html', user=current_user)
+
+        # Guardar todos los cambios
         db.session.commit()
         flash('Profile updated', category='success')
         print('Profile updated')
 
     return render_template('profile.html', user=current_user)
+
 
 @views.route('/update_bio', methods=['POST'])
 @login_required
@@ -183,18 +203,22 @@ def publications():
 @views.route('/deletePublication', methods=['POST'])
 @login_required
 def deletePublication():
-    publication = json.loads(request.data)
-    publicationId = publication['id']
-    publication = Publication.query.get(publicationId)
+    publication_id = request.form.get('publication_id')
+    publication = Publication.query.get(publication_id)
+
     if publication:
         if publication.user_id == current_user.id:
             db.session.delete(publication)
             db.session.commit()
-            return render_template("publications.html", user=current_user)
+            flash('Publication deleted successfully', category='success')
+        else:
+            flash('You are not authorized to delete this publication', category='error')
     else:
         flash('Publication not found', category='error')
-        print('Publication not found')
-        return render_template("publications.html", user=current_user)
+
+    return redirect(url_for('views.publications'))
+
+
 
 @views.route('/viewuser/<email>')
 @login_required

@@ -33,9 +33,11 @@
                                 <p class="mb-0 text-dark">{{ publication.content }}</p>
                             </div>
                             {% if user.email == current_user.email %}
-                            <button type="button" class="btn btn-sm btn-danger" onclick="deletePublication('{{publication.id}}')">
-                                &times;
-                            </button>
+                            <form method="POST" action="{{ url_for('views.deletePublication') }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="publication_id" value="{{ publication.id }}">
+                                <button type="submit" class="btn btn-sm btn-danger">&times;</button>
+                            </form>
                             {% endif %}
                         </li>
                         {% endfor %}
