@@ -66,7 +66,6 @@ def profile():
                 current_user.email = new_email
                 logging.info(f"User {current_user.email} updated their email to {new_email}")
 
-
         # --- Actualización de contraseña ---
         if current_password and new_password and confirm_password:
             if not check_password_hash(current_user.password, current_password):
@@ -117,7 +116,6 @@ def profile():
         print('Profile updated')
 
     return render_template('profile.html', user=current_user)
-
 
 @views.route('/update_bio', methods=['POST'])
 @login_required
@@ -190,19 +188,21 @@ def publications():
     if request.method == 'POST':
         publication_raw = request.form.get('publication')
         publication = bleach.clean(publication_raw)
-
         if len(publication) > 1:
             new_publication = Publication(content=publication, user_id=current_user.id)
             db.session.add(new_publication)
             db.session.commit()
-            
             flash('Publication added', category='success')
             return redirect(url_for('views.publications'))
         else:
             flash('The content must contain at least one character', category='error')
-            print('The content must contain at least one character')
-        
-    return render_template("publications.html", user=current_user)
+
+    page = request.args.get('page', 1, type=int)
+    per_page = 8  # Número de publicaciones por página
+    user_publications = Publication.query.filter_by(user_id=current_user.id).order_by(Publication.date.desc()).paginate(page=page, per_page=per_page)
+
+    return render_template("publications.html", user=current_user, user_publications=user_publications)
+
 
 @views.route('/deletePublication', methods=['POST'])
 @login_required
@@ -224,8 +224,6 @@ def deletePublication():
         logging.warning(f"User {current_user.email} attempted to delete non-existent publication ID {publication_id}")
 
     return redirect(url_for('views.publications'))
-
-
 
 @views.route('/viewuser/<email>')
 @login_required

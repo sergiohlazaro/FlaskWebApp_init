@@ -51,3 +51,92 @@
 2025-04-22 15:32:12,949 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "[32mGET /logout HTTP/1.1[0m" 302 -
 2025-04-22 15:32:12,958 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "GET /login HTTP/1.1" 200 -
 2025-04-22 15:32:12,996 [INFO] 127.0.0.1 - - [22/Apr/2025 15:32:12] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:33:47,617 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 16:33:47,618 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-22 16:33:47,620 [INFO]  * Restarting with stat
+2025-04-22 16:33:48,191 [WARNING]  * Debugger is active!
+2025-04-22 16:33:48,194 [INFO]  * Debugger PIN: 669-644-573
+2025-04-22 16:33:51,098 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:51] "GET / HTTP/1.1" 200 -
+2025-04-22 16:33:51,428 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:51] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:33:51,572 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-22 16:33:53,150 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:53] "GET /login HTTP/1.1" 200 -
+2025-04-22 16:33:53,236 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:53] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:33:59,614 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:59] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-22 16:33:59,628 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:59] "GET /home HTTP/1.1" 200 -
+2025-04-22 16:33:59,678 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:59] "[36mGET /static/upm_logo.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:33:59,682 [INFO] 127.0.0.1 - - [22/Apr/2025 16:33:59] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:34:02,089 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:02] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:34:02,122 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:02] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:34:02,134 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:02] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:34:08,055 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:08] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:34:08,068 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:08] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:34:08,094 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:08] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:34:08,097 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:08] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:34:14,105 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:14] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:34:14,116 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:14] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:34:14,143 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:14] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:34:14,147 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:14] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:34:18,127 [INFO] ratelimit 5 per 1 hour (127.0.0.1) exceeded at endpoint: views.publications
+2025-04-22 16:34:18,134 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:18] "[31m[1mPOST /publications HTTP/1.1[0m" 429 -
+2025-04-22 16:34:21,837 [INFO] ratelimit 5 per 1 hour (127.0.0.1) exceeded at endpoint: views.publications
+2025-04-22 16:34:21,838 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:21] "[31m[1mGET /publications HTTP/1.1[0m" 429 -
+2025-04-22 16:34:23,754 [INFO] ratelimit 5 per 1 hour (127.0.0.1) exceeded at endpoint: views.publications
+2025-04-22 16:34:23,756 [INFO] 127.0.0.1 - - [22/Apr/2025 16:34:23] "[31m[1mGET /publications HTTP/1.1[0m" 429 -
+2025-04-22 16:35:27,117 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 16:35:27,117 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-22 16:35:27,118 [INFO]  * Restarting with stat
+2025-04-22 16:35:27,643 [WARNING]  * Debugger is active!
+2025-04-22 16:35:27,644 [INFO]  * Debugger PIN: 669-644-573
+2025-04-22 16:35:30,330 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:30] "GET / HTTP/1.1" 200 -
+2025-04-22 16:35:30,378 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:30] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:35:38,436 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:38] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:35:38,475 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:38] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:35:38,479 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:38] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:35:42,736 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:42] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:35:42,747 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:42] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:35:42,776 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:42] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:35:42,780 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:42] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:35:50,121 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:50] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:35:50,133 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:50] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:35:50,157 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:50] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:35:50,160 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:50] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:35:57,436 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:57] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:35:57,451 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:57] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:35:57,478 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:57] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:35:57,483 [INFO] 127.0.0.1 - - [22/Apr/2025 16:35:57] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:09,665 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:09] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:41:09,688 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:09] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:41:09,732 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:09] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:09,740 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:09] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:15,551 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:15] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:41:15,561 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:15] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:41:15,586 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:15] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:15,589 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:15] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:22,960 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:22] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:41:22,984 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:22] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:41:23,031 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:23] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:23,048 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:23] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:29,339 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:29] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-22 16:41:29,354 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:29] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:41:29,380 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:29] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:29,385 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:29] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:31,863 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:31] "GET /publications?page=2 HTTP/1.1" 200 -
+2025-04-22 16:41:31,897 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:31] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:31,910 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:31] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:34,012 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:34] "GET /publications?page=1 HTTP/1.1" 200 -
+2025-04-22 16:41:34,050 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:34] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:41:34,062 [INFO] 127.0.0.1 - - [22/Apr/2025 16:41:34] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:41:56,518 [INFO]  * Detected change in '/home/sergio/Proyectos/FlaskWebApp_init/website/__init__.py', reloading
+2025-04-22 16:41:56,788 [INFO]  * Restarting with stat
+2025-04-22 16:41:57,310 [WARNING]  * Debugger is active!
+2025-04-22 16:41:57,310 [INFO]  * Debugger PIN: 669-644-573
+2025-04-22 16:42:38,941 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:38] "GET /publications?page=2 HTTP/1.1" 200 -
+2025-04-22 16:42:38,977 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:38] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:42:38,985 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:38] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 16:42:40,054 [INFO] User admin@admin.com deleted publication ID 16
+2025-04-22 16:42:40,056 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:40] "[32mPOST /deletePublication HTTP/1.1[0m" 302 -
+2025-04-22 16:42:40,075 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:40] "GET /publications HTTP/1.1" 200 -
+2025-04-22 16:42:40,131 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:40] "[36mGET /static/profile_pics/hollowknight.jpg HTTP/1.1[0m" 304 -
+2025-04-22 16:42:40,138 [INFO] 127.0.0.1 - - [22/Apr/2025 16:42:40] "[36mGET /static/index.js HTTP/1.1[0m" 304 -

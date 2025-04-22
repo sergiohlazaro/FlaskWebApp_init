@@ -11,10 +11,10 @@ from flask_limiter.util import get_remote_address
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-# Limiter configurado con 5 solicitudes por hora como límite global por IP
+# Limiter configurado con 20 solicitudes por hora como límite global por IP
 limiter = Limiter(
     get_remote_address,
-    default_limits=["5 per hour"]
+    default_limits=["20 per hour"]
 )
 
 def create_app():
@@ -23,7 +23,7 @@ def create_app():
     csrf = CSRFProtect()
     csrf.init_app(app)
 
-    limiter.init_app(app)  # ← Inicialización del rate limiting
+    limiter.init_app(app)  # Inicialización del rate limiting
 
     app.config['SECRET_KEY'] = 'mysecretkeymysecretkey'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
