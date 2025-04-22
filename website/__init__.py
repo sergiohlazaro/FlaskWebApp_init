@@ -14,6 +14,8 @@ def create_app():
 
     app.config['SECRET_KEY'] = 'mysecretkeymysecretkey'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SESSION_COOKIE_SECURE'] = True # Only for HTTPS
+    # Cookie secure only works if the server is configured for HTTPS
 
     db.init_app(app)
 
