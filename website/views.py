@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from .models import db, LoginRecord, User, Publication, Message
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import or_, and_
+import bleach
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -97,7 +98,8 @@ def profile():
 @views.route('/update_bio', methods=['POST'])
 @login_required
 def update_bio():
-    bio = request.form.get('bio')
+    bio_raw = request.form.get('bio')
+    bio = bleach.clean(bio_raw)
     if len(bio) > 100:  # Example limit
         flash("Bio too long. Maximum 100 characters.", category='error')
         return render_template('profile.html', user=current_user)
@@ -162,7 +164,8 @@ def unblock_user(user_id):
 @login_required
 def publications():
     if request.method == 'POST':
-        publication = request.form.get('publication')
+        publication_raw = request.form.get('publication')
+        publication = bleach.clean(publication_raw)
 
         if len(publication) > 1:
             new_publication = Publication(content=publication, user_id=current_user.id)
@@ -247,7 +250,8 @@ def messages():
 @login_required
 def send_message():
     receiver_email = request.form.get('receiver_email')
-    content = request.form.get('content')
+    content_raw = request.form.get('content')
+    content = bleach.clean(content_raw)
 
     if not receiver_email or not content:
         flash('Receiver email and content are required', category='error')
