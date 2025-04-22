@@ -4,6 +4,7 @@ from flask import Blueprint, json, jsonify, redirect, render_template, url_for, 
 from flask_login import login_required, current_user
 from .models import db, LoginRecord, User, Publication, Message
 from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy import or_, and_
 
 # La variable current_user es una variable que se utiliza para saber si un usuario está logueado o no
 
@@ -215,18 +216,23 @@ def userlist():
 @login_required
 def messages():
     # Users the current user has communicated with
-    users_contacted = db.session.query(User).join(
-        Message, (Message.sender_id == User.id) | (Message.receiver_id == User.id)
-    ).filter(User.id != current_user.id).distinct().all()
+    users_contacted = User.query.filter(
+        User.id != current_user.id,
+        or_(
+            and_(Message.sender_id == current_user.id, Message.receiver_id == User.id),
+            and_(Message.receiver_id == current_user.id, Message.sender_id == User.id)
+        )
+    ).distinct().all()
 
     selected_user_id = request.args.get('user_id', type=int)
     conversation = None
 
     if selected_user_id:
-        # Get conversation with the selected user
         conversation = Message.query.filter(
-            (Message.sender_id == current_user.id) & (Message.receiver_id == selected_user_id) |
-            (Message.receiver_id == current_user.id) & (Message.sender_id == selected_user_id)
+            or_(
+                and_(Message.sender_id == current_user.id, Message.receiver_id == selected_user_id),
+                and_(Message.receiver_id == current_user.id, Message.sender_id == selected_user_id)
+            )
         ).order_by(Message.timestamp).all()
 
     return render_template(
