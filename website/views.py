@@ -15,7 +15,12 @@ from PIL import Image
 views = Blueprint('views', __name__)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS_DOCS = {'pdf', 'doc', 'docx', 'txt', 'png', 'jpg', 'jpeg', 'gif'}
+
 UPLOAD_FOLDER = 'website/static/profile_pics'
+
+def allowed_file_generic(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_DOCS
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -219,20 +224,38 @@ def publications():
     if request.method == 'POST':
         publication_raw = request.form.get('publication')
         publication = bleach.clean(publication_raw)
-        if len(publication) > 1:
-            new_publication = Publication(content=publication, user_id=current_user.id)
+        file = request.files.get('publication_file')
+        filename = None
+
+        if file and allowed_file_generic(file.filename):
+            filename = secure_filename(file.filename)
+            upload_folder = os.path.join('website', 'static', 'uploads', 'publications')
+            os.makedirs(upload_folder, exist_ok=True)
+            filepath = os.path.join(upload_folder, filename)
+            file.save(filepath)
+        elif file and not allowed_file_generic(file.filename):
+            flash('Unsupported file type.', category='error')
+            return redirect(url_for('views.publications'))
+
+        if len(publication) > 0 or filename:
+            new_publication = Publication(
+                content=publication,
+                user_id=current_user.id,
+                file_path=filename
+            )
             db.session.add(new_publication)
             db.session.commit()
             flash('Publication added', category='success')
             return redirect(url_for('views.publications'))
         else:
-            flash('The content must contain at least one character', category='error')
+            flash('The content must contain at least one character or an attached file', category='error')
 
     page = request.args.get('page', 1, type=int)
-    per_page = 8  # Número de publicaciones por página
+    per_page = 8
     user_publications = Publication.query.filter_by(user_id=current_user.id).order_by(Publication.date.desc()).paginate(page=page, per_page=per_page)
 
     return render_template("publications.html", user=current_user, user_publications=user_publications)
+
 
 
 @views.route('/deletePublication', methods=['POST'])
@@ -317,6 +340,8 @@ def send_message():
     receiver_email = request.form.get('receiver_email')
     content_raw = request.form.get('content')
     content = bleach.clean(content_raw)
+    file = request.files.get('message_file')
+    filename = None
 
     if not receiver_email or not content:
         flash('Receiver email and content are required', category='error')
@@ -327,7 +352,23 @@ def send_message():
         flash('User with this email does not exist!', category='error')
         return redirect(url_for('views.messages'))
 
-    new_message = Message(sender_id=current_user.id, receiver_id=receiver.id, content=content)
+    # Procesar archivo adjunto si existe y es válido
+    if file and allowed_file_generic(file.filename):
+        filename = secure_filename(file.filename)
+        upload_folder = os.path.join('website', 'static', 'uploads', 'messages')
+        os.makedirs(upload_folder, exist_ok=True)
+        filepath = os.path.join(upload_folder, filename)
+        file.save(filepath)
+    elif file and not allowed_file_generic(file.filename):
+        flash('Unsupported file type.', category='error')
+        return redirect(url_for('views.messages'))
+
+    new_message = Message(
+        sender_id=current_user.id,
+        receiver_id=receiver.id,
+        content=content,
+        file_path=filename
+    )
     db.session.add(new_message)
     db.session.commit()
     logging.info(f"User {current_user.email} sent a message to {receiver.email}")

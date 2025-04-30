@@ -27,18 +27,33 @@
                 <div style="height: 600px; overflow-y: auto;">
                     <ul class="list-group list-group-flush" id="publications">
                         {% for publication in user_publications.items %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <small class="text-muted">{{ publication.date }}</small>
-                                <p class="mb-0 text-dark">{{ publication.content }}</p>
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap w-100">
+                                <div class="me-2">
+                                    <small class="text-muted">{{ publication.date }}</small>
+                                    <p class="mb-1 text-dark">{{ publication.content }}</p>
+
+                                    {% if publication.file_path %}
+                                    <div class="mt-2">
+                                        {% if publication.file_path.endswith(('png','jpg','jpeg','gif')) %}
+                                            <img src="{{ url_for('static', filename='uploads/publications/' + publication.file_path) }}"
+                                                 class="img-fluid rounded" style="max-height: 200px;">
+                                        {% else %}
+                                            <a href="{{ url_for('static', filename='uploads/publications/' + publication.file_path) }}"
+                                               download class="text-primary">📎 Download attached file</a>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                {% if user.email == current_user.email %}
+                                <form method="POST" action="{{ url_for('views.deletePublication') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="publication_id" value="{{ publication.id }}">
+                                    <button type="submit" class="btn btn-sm btn-danger ms-auto">&times;</button>
+                                </form>
+                                {% endif %}
                             </div>
-                            {% if user.email == current_user.email %}
-                            <form method="POST" action="{{ url_for('views.deletePublication') }}">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <input type="hidden" name="publication_id" value="{{ publication.id }}">
-                                <button type="submit" class="btn btn-sm btn-danger">&times;</button>
-                            </form>
-                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
@@ -71,10 +86,13 @@
         <div class="col-md-4">
             <div class="card shadow-sm p-3">
                 <h5 class="card-title">Publish Something</h5>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <textarea name="publication" class="form-control" rows="6" placeholder="What's on your mind?"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" name="publication_file" class="form-control">
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary btn-sm">Publish</button>

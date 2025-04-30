@@ -26,6 +26,7 @@ class Publication(db.Model):
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    file_path = db.Column(db.String(255), nullable=True)
 
 # Definicion del modelo de registro de login
 class LoginRecord(db.Model):
@@ -41,6 +42,7 @@ class Message(db.Model):
     receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=func.now())
+    file_path = db.Column(db.String(255), nullable=True)
 
     # Relationships
     sender = db.relationship('User', foreign_keys=[sender_id], backref='sent_messages')

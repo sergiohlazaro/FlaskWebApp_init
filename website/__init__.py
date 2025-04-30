@@ -11,11 +11,10 @@ from flask_limiter.util import get_remote_address
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-# Limiter configurado con 20 solicitudes por hora como límite global por IP
 limiter = Limiter(
-    get_remote_address,
-    default_limits=["20 per hour"]
+    get_remote_address
 )
+
 
 def create_app():
     app = Flask(__name__)

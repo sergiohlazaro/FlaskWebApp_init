@@ -4,10 +4,12 @@ from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 # Para hashear las passwords y solucionar la vulneravilidad de almacenarlas en texto plano en la base de datos
 from werkzeug.security import generate_password_hash, check_password_hash
+from . import limiter
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
+@limiter.limit("10 per hour")
 def login():
     data = request.form
     print(data)

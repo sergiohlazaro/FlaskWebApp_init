@@ -8,7 +8,7 @@
         <div class="col-md-4 border-end">
             <div class="mb-4">
                 <h5 class="text-primary">Send a New Message</h5>
-                <form method="POST" action="{{ url_for('views.send_message') }}">
+                <form method="POST" action="{{ url_for('views.send_message') }}" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <label for="receiver_email" class="form-label">Recipient's Email:</label>
@@ -17,11 +17,16 @@
                     <div class="mb-3">
                         <textarea name="content" class="form-control" rows="3" placeholder="Type your message..." required></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="message_file" class="form-label">Attach a file (optional):</label>
+                        <input type="file" name="message_file" class="form-control">
+                    </div>
                     <button type="submit" class="btn btn-primary w-100">Send</button>
                 </form>
             </div>
 
-            <div>
+            <!-- Conversations List with Scroll -->
+            <div style="max-height: 400px; overflow-y: auto;">
                 <h5 class="text-primary">Conversations</h5>
                 <ul class="list-group">
                     {% for user in users_contacted %}
@@ -48,6 +53,18 @@
                                 {% if message.sender_id == current_user.id %}You{% else %}{{ message.sender.name }}{% endif %}:
                             </strong>
                             <span>{{ message.content }}</span>
+                            {% if message.file_path %}
+                            <div class="mt-2">
+                                {% if message.file_path.endswith(('png','jpg','jpeg','gif')) %}
+                                    <img src="{{ url_for('static', filename='uploads/messages/' + message.file_path) }}"
+                                         class="img-fluid rounded" style="max-height: 200px;">
+                                {% else %}
+                                    <a href="{{ url_for('static', filename='uploads/messages/' + message.file_path) }}" download>
+                                        📎 Download attached file
+                                    </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
                             <small class="text-muted d-block">{{ message.timestamp }}</small>
                         </li>
                         {% endfor %}
@@ -75,6 +92,7 @@
 
     .list-group-item:hover {
         background-color: #f8f9fa;
+        cursor: pointer;
     }
 
     .btn {
