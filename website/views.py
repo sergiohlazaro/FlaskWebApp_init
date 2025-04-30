@@ -1,7 +1,7 @@
 import os
 from werkzeug.utils import secure_filename
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash, request
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 from .models import db, LoginRecord, User, Publication, Message
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import or_, and_
@@ -129,7 +129,7 @@ def profile():
 def update_bio():
     bio_raw = request.form.get('bio')
     bio = bleach.clean(bio_raw)
-    if len(bio) > 100:  # Example limit
+    if len(bio) > 100:  
         flash("Bio too long. Maximum 100 characters.", category='error')
         return render_template('profile.html', user=current_user)
     else:
@@ -150,6 +150,30 @@ def update_social_links():
     db.session.commit()
     flash("Social media links updated successfully!", "success")
     return render_template('profile.html', user=current_user)
+
+@views.route('/delete_account', methods=['POST'])
+@login_required
+def delete_account():
+    user_id = current_user.id
+
+    # Eliminar publicaciones del usuario
+    Publication.query.filter_by(user_id=user_id).delete()
+
+    # Eliminar mensajes enviados o recibidos
+    Message.query.filter((Message.sender_id == user_id) | (Message.receiver_id == user_id)).delete()
+
+    # Eliminar registros de login
+    LoginRecord.query.filter_by(user_id=user_id).delete()
+
+    # Finalmente, eliminar el propio usuario
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+
+    logout_user()
+    flash("Your account has been deleted.", "success")
+    return redirect(url_for('auth.login'))
+
 
 
 @views.route('/admin')
@@ -237,12 +261,17 @@ def deletePublication():
 def viewuser(email):
     user = User.query.filter_by(email=email).first()
     if user:
-        publications = Publication.query.filter_by(user_id=user.id).all()
-        return render_template("publications.html", user=user, publications=publications)
+        page = request.args.get('page', 1, type=int)
+        per_page = 8
+        user_publications = Publication.query.filter_by(user_id=user.id)\
+            .order_by(Publication.date.desc())\
+            .paginate(page=page, per_page=per_page)
+
+        return render_template("publications.html", user=user, user_publications=user_publications)
     else:
         flash('User not found', category='error')
-        print('User not found')
         return render_template("userlist.html", user=current_user)
+
 
 @views.route('/userlist')
 @login_required

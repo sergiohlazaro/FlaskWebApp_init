@@ -197,3 +197,180 @@
 2025-04-22 16:55:22,594 [INFO] 127.0.0.1 - - [22/Apr/2025 16:55:22] "[32mGET /logout HTTP/1.1[0m" 302 -
 2025-04-22 16:55:22,657 [INFO] 127.0.0.1 - - [22/Apr/2025 16:55:22] "GET /login HTTP/1.1" 200 -
 2025-04-22 16:55:22,733 [INFO] 127.0.0.1 - - [22/Apr/2025 16:55:22] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 17:19:40,351 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 17:19:40,353 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-22 17:19:40,354 [INFO]  * Restarting with stat
+2025-04-22 17:19:40,939 [WARNING]  * Debugger is active!
+2025-04-22 17:19:40,943 [INFO]  * Debugger PIN: 669-644-573
+2025-04-22 17:19:46,003 [INFO] 127.0.0.1 - - [22/Apr/2025 17:19:46] "GET / HTTP/1.1" 200 -
+2025-04-22 17:19:46,400 [INFO] 127.0.0.1 - - [22/Apr/2025 17:19:46] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-22 17:19:46,524 [INFO] 127.0.0.1 - - [22/Apr/2025 17:19:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-30 16:31:09,978 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-30 16:31:09,979 [INFO] [33mPress CTRL+C to quit[0m
+2025-04-30 16:31:09,982 [INFO]  * Restarting with stat
+2025-04-30 16:31:10,888 [WARNING]  * Debugger is active!
+2025-04-30 16:31:10,890 [INFO]  * Debugger PIN: 123-432-313
+2025-04-30 16:31:15,608 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:15] "GET / HTTP/1.1" 200 -
+2025-04-30 16:31:15,657 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:15] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:16,233 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-30 16:31:18,534 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:18] "GET /login HTTP/1.1" 200 -
+2025-04-30 16:31:18,680 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:18] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:26,581 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:26] "POST /login HTTP/1.1" 200 -
+2025-04-30 16:31:26,612 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:26] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:32,049 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:32] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-30 16:31:32,067 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:32] "GET /home HTTP/1.1" 200 -
+2025-04-30 16:31:32,112 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:32] "[36mGET /static/upm_logo.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:31:32,116 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:32] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:34,769 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:34] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:31:34,881 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:34] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:31:34,918 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:34] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:36,367 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:36] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:31:36,406 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:36] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:31:36,484 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:36] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:31:36,498 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:36] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:39,855 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:39] "GET /admin HTTP/1.1" 200 -
+2025-04-30 16:31:39,965 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:39] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:45,073 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:45] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:31:45,140 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:45] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:51,578 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:51] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:31:51,713 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:51] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:31:51,754 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:51] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:31:55,146 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:55] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:31:55,161 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:55] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:31:55,244 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:55] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:31:55,252 [INFO] 127.0.0.1 - - [30/Apr/2025 16:31:55] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:32:06,933 [INFO] 127.0.0.1 - - [30/Apr/2025 16:32:06] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:32:07,052 [INFO] 127.0.0.1 - - [30/Apr/2025 16:32:07] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:32:07,069 [INFO] 127.0.0.1 - - [30/Apr/2025 16:32:07] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:36:23,236 [INFO]  * Detected change in '/home/sergio/Proyectos/FlaskWebApp_init/website/views.py', reloading
+2025-04-30 16:36:23,711 [INFO]  * Restarting with stat
+2025-04-30 16:36:24,558 [WARNING]  * Debugger is active!
+2025-04-30 16:36:24,559 [INFO]  * Debugger PIN: 123-432-313
+2025-04-30 16:39:00,307 [INFO] 127.0.0.1 - - [30/Apr/2025 16:39:00] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:39:00,478 [INFO] 127.0.0.1 - - [30/Apr/2025 16:39:00] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:39:00,484 [INFO] 127.0.0.1 - - [30/Apr/2025 16:39:00] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:41:23,835 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:23] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:41:23,924 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:23] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:41:23,944 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:23] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:41:35,018 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:35] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-04-30 16:41:35,048 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:35] "GET /login HTTP/1.1" 200 -
+2025-04-30 16:41:35,153 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:35] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:41:56,083 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:56] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-30 16:41:56,100 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:56] "GET /home HTTP/1.1" 200 -
+2025-04-30 16:41:56,163 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:56] "[36mGET /static/upm_logo.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:41:56,170 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:56] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:41:59,413 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:59] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:41:59,576 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:59] "[36mGET /static/profile_pics/icon.png HTTP/1.1[0m" 304 -
+2025-04-30 16:41:59,611 [INFO] 127.0.0.1 - - [30/Apr/2025 16:41:59] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:42:14,265 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:14] "[32mPOST /delete_account HTTP/1.1[0m" 302 -
+2025-04-30 16:42:14,282 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:14] "GET /login HTTP/1.1" 200 -
+2025-04-30 16:42:14,361 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:14] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:42:24,498 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:24] "POST /login HTTP/1.1" 200 -
+2025-04-30 16:42:24,558 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:24] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:42:45,412 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-30 16:42:45,426 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:45] "GET /home HTTP/1.1" 200 -
+2025-04-30 16:42:45,461 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:45] "[36mGET /static/upm_logo.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:42:45,473 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:45] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:42:48,380 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:48] "GET /admin HTTP/1.1" 200 -
+2025-04-30 16:42:48,526 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:48] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:42:49,904 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:49] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:42:49,977 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:49] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:42:50,007 [INFO] 127.0.0.1 - - [30/Apr/2025 16:42:50] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:35,243 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:35] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:43:35,277 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:35] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:43:35,405 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:35] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:35,419 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:35] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:43:36,187 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:36] "GET /admin HTTP/1.1" 200 -
+2025-04-30 16:43:36,297 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:36] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:44,022 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:44] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:43:44,156 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:44] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:43:44,197 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:44] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:46,731 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:46] "GET /publications?page=2 HTTP/1.1" 200 -
+2025-04-30 16:43:46,803 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:46] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:43:46,814 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:46] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:52,738 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:52] "GET /messages HTTP/1.1" 200 -
+2025-04-30 16:43:52,810 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:52] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:43:58,123 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:58] "GET /messages?user_id=6 HTTP/1.1" 200 -
+2025-04-30 16:43:58,198 [INFO] 127.0.0.1 - - [30/Apr/2025 16:43:58] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:01,035 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:01] "GET /messages?user_id=12 HTTP/1.1" 200 -
+2025-04-30 16:44:01,107 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:01] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:02,466 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:02] "GET /messages?user_id=8 HTTP/1.1" 200 -
+2025-04-30 16:44:02,538 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:02] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:07,825 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:07] "GET /messages HTTP/1.1" 200 -
+2025-04-30 16:44:07,896 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:07] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:08,600 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:08] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:44:08,678 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:08] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:11,709 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:11] "[35m[1mGET /viewuser/user2@user.com HTTP/1.1[0m" 500 -
+2025-04-30 16:44:11,820 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:11] "GET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-04-30 16:44:11,829 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:11] "GET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-04-30 16:44:11,915 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:11] "GET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=console.png&s=NeXEW4N4sFv3R8CtYQ7m HTTP/1.1" 200 -
+2025-04-30 16:44:11,961 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:11] "GET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-04-30 16:44:20,803 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:20] "[35m[1mGET /viewuser/user2@user.com HTTP/1.1[0m" 500 -
+2025-04-30 16:44:20,853 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:20] "[35m[1mGET /viewuser/user2@user.com HTTP/1.1[0m" 500 -
+2025-04-30 16:44:20,931 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:20] "[36mGET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-30 16:44:20,960 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:20] "[36mGET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-30 16:44:21,007 [INFO] 127.0.0.1 - - [30/Apr/2025 16:44:21] "[36mGET /viewuser/user2@user.com?__debugger__=yes&cmd=resource&f=console.png&s=NeXEW4N4sFv3R8CtYQ7m HTTP/1.1[0m" 304 -
+2025-04-30 16:52:33,495 [INFO]  * Detected change in '/home/sergio/Proyectos/FlaskWebApp_init/website/views.py', reloading
+2025-04-30 16:52:33,865 [INFO]  * Restarting with stat
+2025-04-30 16:52:35,482 [WARNING]  * Debugger is active!
+2025-04-30 16:52:35,483 [INFO]  * Debugger PIN: 123-432-313
+2025-04-30 16:52:45,379 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:45] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:52:45,521 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:45] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:52:45,544 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:45] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:52:49,296 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:49] "[32mPOST /publications HTTP/1.1[0m" 302 -
+2025-04-30 16:52:49,320 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:49] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:52:49,375 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:49] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:52:49,397 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:49] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:52:59,128 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:59] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:52:59,258 [INFO] 127.0.0.1 - - [30/Apr/2025 16:52:59] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:53:00,686 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:00] "GET /viewuser/user2@user.com HTTP/1.1" 200 -
+2025-04-30 16:53:00,760 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:00] "[36mGET /static/profile_pics/default.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:53:00,785 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:00] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:53:03,593 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:03] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:53:03,664 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:03] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:53:07,657 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:07] "GET /viewuser/user4@user.com HTTP/1.1" 200 -
+2025-04-30 16:53:07,731 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:07] "GET /static/profile_pics/pix1.jpg HTTP/1.1" 200 -
+2025-04-30 16:53:07,741 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:07] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:53:57,844 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:57] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:53:57,961 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:57] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:53:57,974 [INFO] 127.0.0.1 - - [30/Apr/2025 16:53:57] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:10,870 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:10] "GET /admin HTTP/1.1" 200 -
+2025-04-30 16:54:11,000 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:10] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:12,448 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:12] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:54:12,522 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:12] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:12,543 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:12] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:14,027 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:14] "GET /admin HTTP/1.1" 200 -
+2025-04-30 16:54:14,136 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:14] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:15,168 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "GET /profile HTTP/1.1" 200 -
+2025-04-30 16:54:15,251 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:15,276 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:15,727 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:54:15,849 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:15,891 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:15] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:17,674 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:17] "GET /messages HTTP/1.1" 200 -
+2025-04-30 16:54:17,732 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:17] "GET /messages HTTP/1.1" 200 -
+2025-04-30 16:54:17,876 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:17] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:20,291 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:20] "GET /publications HTTP/1.1" 200 -
+2025-04-30 16:54:20,372 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:20] "[36mGET /static/profile_pics/OIP.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:20,403 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:20] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:23,271 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:23] "GET /messages HTTP/1.1" 200 -
+2025-04-30 16:54:23,345 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:23] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:24,742 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:24] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:54:24,871 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:24] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:31,153 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:31] "GET /viewuser/user4@user.com HTTP/1.1" 200 -
+2025-04-30 16:54:31,269 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:31] "[36mGET /static/profile_pics/pix1.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:31,275 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:31] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:33,067 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:33] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:54:33,208 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:33] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:34,413 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:34] "GET /viewuser/test1@test.com HTTP/1.1" 200 -
+2025-04-30 16:54:34,525 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:34] "[36mGET /static/profile_pics/default.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:34,539 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:34] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:35,793 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:35] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:54:35,865 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:35] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:37,232 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:37] "GET /viewuser/test3@test.com HTTP/1.1" 200 -
+2025-04-30 16:54:37,307 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:37] "[36mGET /static/profile_pics/default.jpg HTTP/1.1[0m" 304 -
+2025-04-30 16:54:37,332 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:37] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-04-30 16:54:39,465 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:39] "GET /userlist HTTP/1.1" 200 -
+2025-04-30 16:54:39,540 [INFO] 127.0.0.1 - - [30/Apr/2025 16:54:39] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
