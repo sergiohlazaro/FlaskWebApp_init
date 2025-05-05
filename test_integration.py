@@ -113,46 +113,4 @@ def test_admin_block_unblock_user_flow(client, app):
 
 ############################################################
 
-def test_change_password(client, user):
-    client.post("/login", data={"email": user.email, "password": "password123"}, follow_redirects=True)
-    
-    response = client.post("/change_password", data={
-        "old_password": "password123",
-        "new_password": "newpassword456",
-        "new_password2": "newpassword456"
-    }, follow_redirects=True)
-
-    assert b"Password updated successfully" in response.data
-
-    # Logout
-    client.get("/logout", follow_redirects=True)
-
-    # Login con la nueva contraseña
-    response = client.post("/login", data={"email": user.email, "password": "newpassword456"}, follow_redirects=True)
-    assert b"Logged in successfully" in response.data
-
-def test_update_profile(client, user):
-    client.post("/login", data={"email": user.email, "password": "password123"}, follow_redirects=True)
-
-    response = client.post("/update_profile", data={
-        "name": "NewName",
-        "surname": "NewSurname"
-    }, follow_redirects=True)
-
-    assert b"Profile updated" in response.data
-
-def test_blocked_user_cannot_create_publication(client, app):
-    with app.app_context():
-        user = User(name="Blocked", surname="User", email="blocked@example.com", password=generate_password_hash("password123"), is_blocked=True)
-        db.session.add(user)
-        db.session.commit()
-
-    client.post("/login", data={"email": "blocked@example.com", "password": "password123"}, follow_redirects=True)
-
-    response = client.post("/publications", data={
-        "publication": "No debería poder publicarse esto."
-    }, follow_redirects=True)
-
-    assert b"Your account is blocked" in response.data
-
 

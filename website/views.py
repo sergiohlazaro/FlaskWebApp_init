@@ -297,8 +297,8 @@ def publications():
 
     # Verificar si el usuario está bloqueado
     if current_user.is_blocked:
-        flash('This account has been blocked', category='error')
-        return redirect(url_for('views.home'))
+        flash("Your account is blocked", category="error")
+        return redirect(url_for("views.home"))
 
 
     if request.method == 'POST':
