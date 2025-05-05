@@ -96,62 +96,52 @@ def sign_up():
 
         # Validación de datos
 
-        # Comprobar si el email ya está registrado
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists', category='error')
             print('Email already exists')
 
-        # Validar longitud del nombre
         elif len(name) < 2:
             flash('First name must be at least 2 characters long', category='error')
             print('First name must be at least 2 characters long')
 
-        # Validar longitud del apellido
         elif len(surname) < 2:
             flash('Last name must be at least 2 characters long', category='error')
             print('Last name must be at least 2 characters long')
 
-        # Comprobar que las contraseñas coincidan
         elif password != password2:
             flash('Passwords do not match.', category='error')
             print('Passwords do not match.')
 
-        # Comprobar longitud mínima de la contraseña
         elif len(password) < 8:
             flash('Password must be at least 8 characters long', category='error')
             print('Password must be at least 8 characters long')
 
-        # Si todos los datos son válidos
         else:
-            # Crear un nuevo usuario → La contraseña se hashea antes de almacenarse
+            # Crear el usuario
             new_user = User(
-                name=name, 
-                surname=surname, 
-                email=email, 
-                password=generate_password_hash(password, method='pbkdf2:sha256')  # Método recomendado
+                name=name,
+                surname=surname,
+                email=email,
+                password=generate_password_hash(password, method='pbkdf2:sha256')
             )
-
-            # Guardar usuario en la base de datos
             db.session.add(new_user)
             db.session.commit()
 
             flash('Account created successfully', category='success')
             print('Sign up successful')
 
-            # Iniciar sesión automáticamente tras registro
-            login_user(new_user, remember=True)  # Riesgo similar al login (cookies persistentes)
+            # Iniciar sesión
+            login_user(new_user, remember=True)
 
-            # Registrar IP en LoginRecord para trazabilidad
+            # Registrar IP
             ip_address = request.remote_addr
             login_record = LoginRecord(user_id=new_user.id, ip_address=ip_address)
             db.session.add(login_record)
             db.session.commit()
 
-            # Redirigir al home
-            return redirect(url_for('views.home'))
+            return render_template("home.html", user=current_user)
 
-    # Renderizar formulario de registro
     return render_template("sign_up.html", user=current_user)
 
 # -----------------------

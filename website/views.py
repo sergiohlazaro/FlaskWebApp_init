@@ -291,7 +291,15 @@ def publications():
     """
     Permite al usuario crear publicaciones con texto y archivos adjuntos opcionales.
     Además, lista sus publicaciones en formato paginado.
+
+    Si el usuario está bloqueado, no se le permite crear publicaciones ni ver las existentes.
     """
+
+    # Verificar si el usuario está bloqueado
+    if current_user.is_blocked:
+        flash('This account has been blocked', category='error')
+        return redirect(url_for('views.home'))
+
 
     if request.method == 'POST':
         publication_raw = request.form.get('publication')
@@ -331,6 +339,7 @@ def publications():
     user_publications = Publication.query.filter_by(user_id=current_user.id).order_by(Publication.date.desc()).paginate(page=page, per_page=per_page)
 
     return render_template("publications.html", user=current_user, user_publications=user_publications)
+
 
 @views.route('/deletePublication', methods=['POST'])
 @login_required

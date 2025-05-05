@@ -52,7 +52,7 @@ def test_signup_success(client):
         "password": "password123", 
         "password2": "password123"
     }, follow_redirects=True)
-    assert b"Account created successfuly" in response.data
+    assert b"Account created successfully" in response.data
 
 def test_signup_duplicate(client, user):
     # Prueba para registrar un usuario con un email ya existente
