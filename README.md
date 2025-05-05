@@ -18,14 +18,6 @@ user2@user.com
 
 password2
 -------------------------------
-user3@user.com
-
-password3
--------------------------------
-user4@user.com
-
-password4
--------------------------------
 sergio.hlazaro@alumnos.upm.es
 
 password5
