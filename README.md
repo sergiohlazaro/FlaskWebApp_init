@@ -1,20 +1,16 @@
 # FlaskWebApp_init
 Initial Flask web app
 -------------------------------
-# To correct:
--------------------------------
 ## Default users for test:
-
 admin.admin@admin.com
 
-adminadmin
+admin
 -------------------------------
 user1@user.com
 
 password1
 -------------------------------
-# Pruebas Unitarias
-
+## Pruebas Unitarias
 ## Descripción
 - Este conjunto de pruebas unitarias está diseñado para verificar el correcto funcionamiento de las principales funcionalidades de la aplicación web desarrollada.
 - Las pruebas son ejecutadas utilizando pytest y una base de datos SQLite en memoria, lo que garantiza que son rápidas y no afectan a los datos reales.
