@@ -1,9 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Contact us{% endblock %}
+{# Extiende de la plantilla base para reutilizar el layout general: navbar, footer, scripts, etc. #}
+
+{% block title %}
+    Contact us
+{% endblock %}
+{# Define el título de la página → aparece en la pestaña del navegador. #}
 
 {% block content %}
-    <h1 style="text-align: center; margin-top: 24px;">Welcome to My Cloud UPM Website</h1>
+    {# Inicia el bloque de contenido específico de esta página. Este se inyecta en base.html donde está definido {% block content %} #}
+
+    <h1 style="text-align: center; margin-top: 24px;">
+        Welcome to My Cloud UPM Website
+    </h1>
+    {# Título principal de la página, centrado. #}
+
     <p style="text-align: center; margin-top: 24px;">
         This is the contact us page.
     </p>
+    {# Párrafo descriptivo. Actualmente es un texto placeholder que debería ser sustituido por información real (email, formulario, etc.) #}
+
 {% endblock %}
+{# Fin del bloque de contenido. Todo lo que hay dentro de este bloque se mostrará en la zona correspondiente de base.html #}

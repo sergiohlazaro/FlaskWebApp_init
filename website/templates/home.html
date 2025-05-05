@@ -1,15 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{# Extiende de la plantilla base → navbar, footer y demás elementos comunes serán heredados automáticamente. #}
+
+{% block title %}
+    Home
+{% endblock %}
+{# Título de la pestaña en el navegador → aparece como "Home" cuando se accede a esta página. #}
 
 {% block content %}
-    <h1 style="text-align: center; margin-top: 24px;">Welcome to your personal space My Cloud UPM Website</h1>
+    {# Bloque principal de contenido → se insertará en la sección {% block content %} de base.html #}
+
+    <h1 style="text-align: center; margin-top: 24px;">
+        Welcome to your personal space My Cloud UPM Website
+    </h1>
+    {# Encabezado principal de la página → mensaje de bienvenida para el usuario autenticado. #}
+
     <p style="text-align: center; margin-top: 24px;">
         My Cloud UPM is a cloud storage service that allows you to store your files in the cloud and access them from anywhere.
     </p>
+    {# Descripción breve del servicio → explica qué ofrece la plataforma (contexto para el usuario). #}
 
     <div class="container" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+        {# Contenedor para centrar el logo → Flexbox centrado tanto vertical como horizontalmente #}
+        
         <a href="">
             <img src="static/upm_logo.jpg" style="max-width: 200px; max-height: 200px;">
         </a>
+        {# Imagen del logo de la UPM → se encuentra en la carpeta static y se limita su tamaño para mantener diseño limpio #}
+        {# El enlace <a href=""> está vacío → podría dirigirse en un futuro al portal oficial de la UPM o a otra página interna #}
     </div>
+
 {% endblock %}
+{# Fin del bloque de contenido. #}

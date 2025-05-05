@@ -1,10 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Profile{% endblock %}
+{# Hereda la estructura común → navbar, footer, estilos generales #}
+
+{% block title %}
+    Profile
+{% endblock %}
+{# Título de la pestaña en el navegador → "Profile". #}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row align-items-center">
-        <!-- Profile Picture Section -->
+
+        <!-- ===============================
+             SECCIÓN DE FOTO DE PERFIL
+        ================================ -->
+
         <div class="col-md-4 text-center">
             {% if user.profile_pic %}
                 <img src="{{ url_for('static', filename='profile_pics/' + user.profile_pic) }}" 
@@ -16,9 +25,10 @@
                      class="profile-pic img-thumbnail">
             {% endif %}
             <h4 class="mt-2">{{ user.name }} {{ user.surname }}</h4>
+            {# Muestra la foto de perfil actual del usuario + su nombre completo #}
         </div>
 
-        <!-- Update Profile Picture Form -->
+        <!-- Formulario para actualizar la foto de perfil -->
         <div class="col-md-8">
             <div class="card shadow-sm p-3 smaller-box">
                 <h5>Update Profile Picture</h5>
@@ -35,9 +45,13 @@
     </div>
 
     <div class="row mt-3">
-        <!-- Left Column -->
+        <!-- ===============================
+             COLUMNA IZQUIERDA → Email y Contraseña
+        ================================ -->
+
         <div class="col-md-6">
-            <!-- Update Email Section -->
+
+            <!-- Actualizar email -->
             <div class="card shadow-sm p-3 smaller-box mb-3">
                 <h5>Update Email</h5>
                 <form method="POST" id="emailForm">
@@ -54,7 +68,7 @@
                 </form>
             </div>
 
-            <!-- Update Password Section -->
+            <!-- Actualizar contraseña -->
             <div class="card shadow-sm p-3 smaller-box">
                 <h5>Update Password</h5>
                 <form method="POST" id="passwordForm">
@@ -74,11 +88,16 @@
                     <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
                 </form>
             </div>
+
         </div>
 
-        <!-- Right Column -->
+        <!-- ===============================
+             COLUMNA DERECHA → Bio, Redes sociales y eliminar cuenta
+        ================================ -->
+
         <div class="col-md-6">
-            <!-- Update Bio Section -->
+
+            <!-- Actualizar bio -->
             <div class="card shadow-sm p-3 larger-box">
                 <h5>Update Bio</h5>
                 <form method="POST" action="{{ url_for('views.update_bio') }}">
@@ -90,7 +109,7 @@
                 </form>
             </div>
 
-            <!-- Update Social Media Links Section -->
+            <!-- Actualizar redes sociales -->
             <div class="card shadow-sm p-3 smaller-social-box mt-3">
                 <form method="POST" action="{{ url_for('views.update_social_links') }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -108,7 +127,7 @@
                 </form>
             </div>
 
-            <!-- Delete Account Section -->
+            <!-- Eliminar cuenta -->
             <div class="card shadow-sm p-2 mt-3">
                 <h6 class="text-danger">Delete Account</h6>
                 <p class="text-muted mb-2">This action is irreversible.</p>
@@ -116,11 +135,12 @@
                     <span class="fs-6">Delete My Account</span>
                 </button>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal de confirmación para eliminar la cuenta -->
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -142,7 +162,7 @@
   </div>
 </div>
 
-<!-- Custom CSS -->
+<!-- Estilos personalizados -->
 <style>
     .profile-pic {
         width: 120px;
@@ -150,45 +170,13 @@
         object-fit: cover;
         border-radius: 50%;
     }
-
-    .card.smaller-box {
+    .card.smaller-box, .card.larger-box, .card.smaller-social-box {
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 10px;
     }
-
-    .card.larger-box {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        min-height: 250px;
-    }
-
-    .card.smaller-social-box {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-    }
-
-    .btn {
+    .btn, .btn-sm {
         border-radius: 5px;
-    }
-
-    .btn-sm {
-        padding: 4px 10px;
-    }
-
-    .form-control-sm {
-        font-size: 0.85rem;
-    }
-
-    .form-label {
-        font-size: 0.9rem;
-    }
-
-    .card h5 {
-        margin-bottom: 10px;
-        font-size: 1.1rem;
     }
 </style>
 {% endblock %}

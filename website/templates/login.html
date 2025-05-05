@@ -1,31 +1,52 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{# Hereda la estructura de la plantilla base → navbar, footer y demás elementos comunes estarán disponibles automáticamente #}
+
+{% block title %}
+    Login
+{% endblock %}
+{# Define el título de la página → "Login" aparecerá en la pestaña del navegador. #}
 
 {% block content %}
 <div class="container mt-5">
+    {# Contenedor principal con margen superior (mt-5) para dar separación respecto al navbar #}
+
     <div class="card shadow-sm p-4">
+        {# Tarjeta de Bootstrap para mostrar el formulario de manera destacada y con sombra #}
         <h3 class="text-center mb-4">Log In</h3>
+        {# Título de la tarjeta centrado → Indica que es la página de inicio de sesión #}
+
         <form action="{{ url_for('auth.login') }}" method="POST">
+            {# Formulario que enviará los datos a la ruta 'auth.login' por método POST (manejada por el backend en auth.py) #}
+
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {# Token CSRF oculto para proteger contra ataques Cross-Site Request Forgery → generado automáticamente por Flask-WTF #}
+
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
+            {# Campo para introducir el email del usuario → requerido #}
+
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
+            {# Campo para introducir la contraseña → requerido #}
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary rounded-btn w-100">Log In</button>
             </div>
+            {# Botón para enviar el formulario → ocupa el 100% del ancho para mayor accesibilidad #}
         </form>
+
         <div class="text-center mt-3">
             <a href="{{ url_for('auth.sign_up') }}" class="text-decoration-none">Don't have an account? Sign up</a>
         </div>
+        {# Enlace para dirigir al formulario de registro si el usuario no tiene cuenta todavía #}
     </div>
 </div>
 
-<!-- Custom CSS -->
+<!-- Custom CSS para ajustar estilos visuales -->
 <style>
     .card {
         border-radius: 10px;

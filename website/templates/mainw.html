@@ -1,9 +1,23 @@
 {% extends "base.html" %}
-{% block title %}My UPM cloud{% endblock %}
+{# Extiende de la plantilla base → incluye navbar, footer y demás componentes comunes #}
+
+{% block title %}
+    My UPM cloud
+{% endblock %}
+{# Define el título que aparecerá en la pestaña del navegador → en este caso "My UPM cloud" #}
 
 {% block content %}
-    <h1 style="text-align: center; margin-top: 24px;">Welcome to My Cloud UPM Website</h1>
+    {# Inicio del bloque de contenido específico que se inyectará en base.html #}
+
+    <h1 style="text-align: center; margin-top: 24px;">
+        Welcome to My Cloud UPM Website
+    </h1>
+    {# Encabezado principal centrado → texto de bienvenida para el usuario. #}
+
     <p style="text-align: center; margin-top: 24px;">
         My Cloud UPM is a cloud storage service that allows you to store your files in the cloud and access them from anywhere.
     </p>
+    {# Párrafo descriptivo → Explicación simple del propósito del servicio #}
+
 {% endblock %}
+{# Fin del bloque de contenido → lo que se coloque aquí se renderizará en el bloque content de base.html #}

@@ -1,33 +1,53 @@
 {% extends "base.html" %}
-{% block title %}Messages{% endblock %}
+{# Extiende la plantilla base para incluir navbar, footer y diseño común. #}
+
+{% block title %}
+    Messages
+{% endblock %}
+{# Título de la pestaña del navegador → "Messages". #}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
-        <!-- Sidebar with Conversations and "Send a New Message" -->
+
+        <!-- ---------------------------
+        SIDEBAR: ENVIAR MENSAJE Y LISTA DE CONVERSACIONES
+        --------------------------- -->
         <div class="col-md-4 border-end">
             <div class="mb-4">
                 <h5 class="text-primary">Send a New Message</h5>
+
                 <form method="POST" action="{{ url_for('views.send_message') }}" enctype="multipart/form-data">
+                    {# Formulario para enviar un nuevo mensaje + archivo adjunto opcional #}
+                    
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    {# Protección contra ataques CSRF #}
+
                     <div class="mb-3">
                         <label for="receiver_email" class="form-label">Recipient's Email:</label>
                         <input type="email" name="receiver_email" class="form-control" placeholder="Enter recipient's email" required>
                     </div>
+                    {# Campo para email del destinatario → obligatorio #}
+
                     <div class="mb-3">
                         <textarea name="content" class="form-control" rows="3" placeholder="Type your message..." required></textarea>
                     </div>
+                    {# Campo para contenido del mensaje → obligatorio #}
+
                     <div class="mb-3">
                         <label for="message_file" class="form-label">Attach a file (optional):</label>
                         <input type="file" name="message_file" class="form-control">
                     </div>
+                    {# Archivo adjunto opcional → imágenes o documentos #}
+
                     <button type="submit" class="btn btn-primary w-100">Send</button>
                 </form>
             </div>
 
-            <!-- Conversations List with Scroll -->
+            <!-- Lista de conversaciones (scrollable) -->
             <div style="max-height: 400px; overflow-y: auto;">
                 <h5 class="text-primary">Conversations</h5>
+
                 <ul class="list-group">
                     {% for user in users_contacted %}
                     <li class="list-group-item">
@@ -37,13 +57,18 @@
                     </li>
                     {% endfor %}
                 </ul>
+                {# Lista de usuarios con los que se ha hablado antes → clic para cargar conversación #}
             </div>
         </div>
 
-        <!-- Conversation Area -->
+        <!-- ---------------------------
+        ÁREA PRINCIPAL: CONVERSACIÓN ACTUAL
+        --------------------------- -->
+
         <div class="col-md-8">
             <div class="card shadow-sm p-3">
                 <h5 class="card-title text-primary">Conversation</h5>
+
                 <div class="card-body" style="height: 625px; overflow-y: auto;">
                     {% if conversation %}
                     <ul class="list-group">
@@ -53,6 +78,7 @@
                                 {% if message.sender_id == current_user.id %}You{% else %}{{ message.sender.name }}{% endif %}:
                             </strong>
                             <span>{{ message.content }}</span>
+
                             {% if message.file_path %}
                             <div class="mt-2">
                                 {% if message.file_path.endswith(('png','jpg','jpeg','gif')) %}
@@ -65,6 +91,7 @@
                                 {% endif %}
                             </div>
                             {% endif %}
+                            
                             <small class="text-muted d-block">{{ message.timestamp }}</small>
                         </li>
                         {% endfor %}
@@ -78,7 +105,9 @@
     </div>
 </div>
 
-<!-- Custom CSS -->
+<!-- ---------------------------
+ESTILOS PERSONALIZADOS (solo para esta página)
+--------------------------- -->
 <style>
     .card {
         border-radius: 10px;
@@ -99,11 +128,7 @@
         border-radius: 5px;
     }
 
-    .text-primary {
-        font-weight: 600;
-    }
-
-    .text-success {
+    .text-primary, .text-success {
         font-weight: 600;
     }
 </style>

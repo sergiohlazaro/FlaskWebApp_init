@@ -1,43 +1,73 @@
 {% extends "base.html" %}
-{% block title %}Signup{% endblock %}
+{# Hereda la plantilla base para incluir navbar, footer, etc. #}
+
+{% block title %}
+    Signup
+{% endblock %}
+{# Define el título de la pestaña del navegador → "Signup". #}
 
 {% block content %}
+
 <div class="container mt-5">
     <div class="card shadow-sm p-4">
+        {# Tarjeta centrada para contener el formulario → estilo limpio y moderno #}
         <h3 class="text-center mb-4">Create an Account</h3>
+        {# Título del formulario #}
+
         <form method="POST" action="{{ url_for('auth.sign_up') }}">
+            {# Formulario que envía los datos al backend (ruta auth.sign_up) mediante POST #}
+
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {# CSRF Token → protección contra ataques CSRF #}
+
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
             </div>
+            {# Campo para el nombre → obligatorio #}
+
             <div class="mb-3">
                 <label for="surname" class="form-label">Surname</label>
                 <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter your surname" required>
             </div>
+            {# Campo para el apellido → obligatorio #}
+
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
+            {# Campo para el email → obligatorio #}
+
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
+            {# Campo para la contraseña → obligatorio #}
+
             <div class="mb-3">
                 <label for="password" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm your password" required>
             </div>
+            {# Campo para confirmar la contraseña → obligatorio #}
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary rounded-btn w-100">Sign Up</button>
             </div>
+            {# Botón para enviar el formulario → ancho completo #}
         </form>
+
         <div class="text-center mt-3">
             <a href="{{ url_for('auth.login') }}" class="text-decoration-none">Already have an account? Log in</a>
         </div>
+        {# Enlace para usuarios que ya tienen cuenta → lleva a la página de login #}
+
     </div>
 </div>
 
-<!-- Custom CSS -->
+<!-- ===============================
+ ESTILOS PERSONALIZADOS
+=============================== -->
+
 <style>
     .card {
         border-radius: 10px;
@@ -61,4 +91,5 @@
         text-decoration: underline;
     }
 </style>
+
 {% endblock %}

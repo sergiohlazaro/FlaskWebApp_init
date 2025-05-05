@@ -1,101 +1,168 @@
+# Importación de librerías de Flask necesarias para el manejo de rutas, renderizado de plantillas y gestión de peticiones
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+
+# Importación de los modelos de base de datos
 from .models import LoginRecord, User
+
+# Importación de la instancia de la base de datos
 from . import db
+
+# Importación de funciones para gestión de usuarios autenticados
 from flask_login import login_user, login_required, logout_user, current_user
-# Para hashear las passwords y solucionar la vulneravilidad de almacenarlas en texto plano en la base de datos
+
+# Importación de utilidades para hashear (encriptar) contraseñas
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# Importación del limitador de solicitudes (Rate Limiting) para prevenir ataques de fuerza bruta
 from . import limiter
 
+# Creación de un Blueprint llamado 'auth' para agrupar todas las rutas relacionadas con autenticación
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login', methods=['GET', 'POST'])
-@limiter.limit("10 per hour")
-def login():
-    data = request.form
-    print(data)
+# -----------------------
+# LOGIN
+# -----------------------
 
+@auth.route('/login', methods=['GET', 'POST'])
+@limiter.limit("10 per hour")  # Se limita esta ruta a un máximo de 10 solicitudes por hora por IP → Prevención de ataques de fuerza bruta
+def login():
+    # Obtiene los datos enviados mediante POST en el formulario
+    data = request.form
+    print(data)  # SOLO para debug, debería eliminarse en producción
+
+    # Si se envió el formulario
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
+        # Buscar en la base de datos el usuario que tiene ese email
         user = User.query.filter_by(email=email).first()
+
+        # Si no existe el usuario
         if not user:
             flash('Email does not exist', category='error')
             print('Email does not exist')
+
+        # Si el usuario está bloqueado
         elif user.is_blocked:
             flash('This account has been blocked', category='error')
             print('This account has been blocked')
+
+        # Si el usuario existe y no está bloqueado
         else:
+            # Verificar la contraseña (hasheada en la base de datos)
             if check_password_hash(user.password, password):
                 flash('Logged in successfully', category='success')
                 print('Logged in successfully')
-                login_user(user, remember=True) # remember=True para que se mantenga la sesion iniciada (vuln cookies)
-                
-                # Guardar la dirección IP del usuario
-                ip_address = request.remote_addr
+
+                # Iniciar sesión con el usuario → Esto crea una sesión
+                login_user(user, remember=True)  # El flag remember mantiene la sesión activa tras cerrar navegador (riesgo: cookies vulnerables)
+
+                # Registrar IP en LoginRecord para trazabilidad
+                ip_address = request.remote_addr  # Obtener IP del cliente
                 login_record = LoginRecord(user_id=user.id, ip_address=ip_address)
                 db.session.add(login_record)
                 db.session.commit()
+
+                # Redirigir al home
                 return redirect(url_for('views.home'))
+
             else:
                 flash('Incorrect password, try again', category='error')
-                print('Incorrect password, try again') 
+                print('Incorrect password, try again')
 
-    return render_template("login.html", user=current_user) # user=current_user para pasar el usuario a la plantilla login.html y que pueda saber si el usuario está logueado o no 
+    # Renderiza el formulario de login (o lo re-muestra si hubo errores)
+    return render_template("login.html", user=current_user)
+
+# -----------------------
+# SIGN UP (Registro)
+# -----------------------
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def sign_up():
+    # Capturar datos del formulario
     data = request.form
-    print(data)
+    print(data)  # SOLO para debug
 
     if request.method == 'POST':
+        # Recoger los campos del formulario
         name = request.form.get('name')
         surname = request.form.get('surname')
         email = request.form.get('email')
         password = request.form.get('password')
         password2 = request.form.get('password2')
 
-        print(name, surname, email, password, password2)
+        print(name, surname, email, password, password2)  # SOLO para debug
 
+        # Validación de datos
+
+        # Comprobar si el email ya está registrado
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists', category='error')
             print('Email already exists')
+
+        # Validar longitud del nombre
         elif len(name) < 2:
             flash('First name must be at least 2 characters long', category='error')
             print('First name must be at least 2 characters long')
+
+        # Validar longitud del apellido
         elif len(surname) < 2:
             flash('Last name must be at least 2 characters long', category='error')
             print('Last name must be at least 2 characters long')
+
+        # Comprobar que las contraseñas coincidan
         elif password != password2:
             flash('Passwords do not match.', category='error')
             print('Passwords do not match.')
+
+        # Comprobar longitud mínima de la contraseña
         elif len(password) < 8:
             flash('Password must be at least 8 characters long', category='error')
             print('Password must be at least 8 characters long')
+
+        # Si todos los datos son válidos
         else:
-            # Add user to database:
-            new_user = User(name=name, surname=surname, email=email, password=generate_password_hash(password, method='pbkdf2:sha256'))
+            # Crear un nuevo usuario → La contraseña se hashea antes de almacenarse
+            new_user = User(
+                name=name, 
+                surname=surname, 
+                email=email, 
+                password=generate_password_hash(password, method='pbkdf2:sha256')  # Método recomendado
+            )
+
+            # Guardar usuario en la base de datos
             db.session.add(new_user)
             db.session.commit()
-            
-            flash('Account created successfuly', category='success')
+
+            flash('Account created successfully', category='success')
             print('Sign up successful')
-            login_user(new_user, remember=True) # remember=True para que se mantenga la sesion iniciada (vuln cookies)
-            
-            # Guardar la dirección IP del usuario
+
+            # Iniciar sesión automáticamente tras registro
+            login_user(new_user, remember=True)  # Riesgo similar al login (cookies persistentes)
+
+            # Registrar IP en LoginRecord para trazabilidad
             ip_address = request.remote_addr
             login_record = LoginRecord(user_id=new_user.id, ip_address=ip_address)
             db.session.add(login_record)
             db.session.commit()
+
+            # Redirigir al home
             return redirect(url_for('views.home'))
-        
+
+    # Renderizar formulario de registro
     return render_template("sign_up.html", user=current_user)
 
+# -----------------------
+# LOGOUT
+# -----------------------
+
 @auth.route('/logout')
-@login_required
+@login_required  # Solo usuarios autenticados pueden hacer logout
 def logout():
+    # Cierra la sesión del usuario actual
     logout_user()
+
+    # Redirige al login
     return redirect(url_for('auth.login'))
-
-
