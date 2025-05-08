@@ -4,7 +4,6 @@ Initial Flask web app
 ## To correct or implement:
 - Logging en los casos importantes:
 import logging
-
 logging.info("Login attempt failed for email %s", email)
 -------------------------------
 ## Default users for test:
