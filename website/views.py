@@ -5,6 +5,7 @@ import os  # Librería para operaciones con archivos y carpetas
 from werkzeug.utils import secure_filename  # Asegura que los nombres de archivos sean seguros para guardarlos
 from flask import Blueprint, json, jsonify, redirect, render_template, url_for, request, flash
 from flask_login import login_required, current_user, logout_user  # Gestión de sesiones de usuarios
+from . import cache  # Sistema de cache para mejorar rendimiento
 
 # Modelos de base de datos
 from .models import db, LoginRecord, User, Publication, Message
@@ -26,6 +27,9 @@ import logging
 
 # Para procesamiento de imágenes
 from PIL import Image
+
+# Importación del limitador de solicitudes (Rate Limiting) para prevenir ataques de fuerza bruta
+from . import limiter
 
 # ---------------------------------
 # CONFIGURACIONES
@@ -76,11 +80,24 @@ def about():
 def contact():
     return render_template("contact.html", user=current_user)
 
+@views.route('/legal')
+def legal():
+    return render_template("legal.html", user=current_user)
+
+@views.route('/privacy')
+def privacy():
+    return render_template("privacy.html", user=current_user)
+
+@views.route('/cookies')
+def cookies():
+    return render_template("cookies.html", user=current_user)
+
 # ---------------------------------
 # PERFIL DE USUARIO (EDITAR PERFIL)
 # ---------------------------------
 
 @views.route('/profile', methods=['GET', 'POST'])
+@limiter.limit("10 per minute")
 @login_required
 def profile():
     """
@@ -224,6 +241,7 @@ def delete_account():
 
 @views.route('/admin')
 @login_required
+@cache.cached(timeout=60)
 def admin():
     """
     Solo accesible para administradores.
@@ -233,7 +251,6 @@ def admin():
     # Verificar que el usuario tiene rol de administrador
     if current_user.role != 0:
         flash('You are not allowed to access this page', category='error')
-        print('Access denied - User is not admin')
         return redirect(url_for('views.home'))
 
     # Obtener todos los usuarios excepto el admin que está logueado
@@ -291,8 +308,6 @@ def publications():
     """
     Permite al usuario crear publicaciones con texto y archivos adjuntos opcionales.
     Además, lista sus publicaciones en formato paginado.
-
-    Si el usuario está bloqueado, no se le permite crear publicaciones ni ver las existentes.
     """
 
     # Verificar si el usuario está bloqueado
@@ -300,21 +315,27 @@ def publications():
         flash("Your account is blocked", category="error")
         return redirect(url_for("views.home"))
 
-
     if request.method == 'POST':
         publication_raw = request.form.get('publication')
-        publication = bleach.clean(publication_raw)  # Sanitizar el contenido para evitar XSS
+        publication = bleach.clean(publication_raw)
 
         file = request.files.get('publication_file')
         filename = None
 
         # Procesar archivo adjunto
         if file and allowed_file_generic(file.filename):
+            # Verificar tipo MIME
+            allowed_mimetypes = ["image/png", "image/jpeg", "image/gif", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"]
+            if file.mimetype not in allowed_mimetypes:
+                flash('Unsupported file MIME type.', category='error')
+                return redirect(url_for('views.publications'))
+
             filename = secure_filename(file.filename)
             upload_folder = os.path.join('website', 'static', 'uploads', 'publications')
             os.makedirs(upload_folder, exist_ok=True)
             filepath = os.path.join(upload_folder, filename)
             file.save(filepath)
+
         elif file and not allowed_file_generic(file.filename):
             flash('Unsupported file type.', category='error')
             return redirect(url_for('views.publications'))
@@ -339,6 +360,7 @@ def publications():
     user_publications = Publication.query.filter_by(user_id=current_user.id).order_by(Publication.date.desc()).paginate(page=page, per_page=per_page)
 
     return render_template("publications.html", user=current_user, user_publications=user_publications)
+
 
 
 @views.route('/deletePublication', methods=['POST'])
@@ -371,6 +393,7 @@ def deletePublication():
 
 @views.route('/viewuser/<email>')
 @login_required
+@cache.cached(timeout=60)
 def viewuser(email):
     """
     Muestra las publicaciones de otro usuario.
@@ -394,6 +417,7 @@ def viewuser(email):
 
 @views.route('/userlist')
 @login_required
+@cache.cached(timeout=60)
 def userlist():
     """
     Muestra la lista de todos los usuarios excepto el actual.
@@ -442,6 +466,7 @@ def messages():
 
 @views.route('/send_message', methods=['POST'])
 @login_required
+@limiter.limit("15 per hour")
 def send_message():
     """
     Envía un mensaje privado a otro usuario. Permite adjuntar un archivo opcional.
@@ -464,11 +489,18 @@ def send_message():
 
     # Procesar archivo adjunto
     if file and allowed_file_generic(file.filename):
+        # Verificar tipo MIME
+        allowed_mimetypes = ["image/png", "image/jpeg", "image/gif", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain"]
+        if file.mimetype not in allowed_mimetypes:
+            flash('Unsupported file MIME type.', category='error')
+            return redirect(url_for('views.messages'))
+
         filename = secure_filename(file.filename)
         upload_folder = os.path.join('website', 'static', 'uploads', 'messages')
         os.makedirs(upload_folder, exist_ok=True)
         filepath = os.path.join(upload_folder, filename)
         file.save(filepath)
+
     elif file and not allowed_file_generic(file.filename):
         flash('Unsupported file type.', category='error')
         return redirect(url_for('views.messages'))

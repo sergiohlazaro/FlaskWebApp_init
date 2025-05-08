@@ -16,62 +16,84 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Importación del limitador de solicitudes (Rate Limiting) para prevenir ataques de fuerza bruta
 from . import limiter
 
+from flask import session
+
+import time
+
 # Creación de un Blueprint llamado 'auth' para agrupar todas las rutas relacionadas con autenticación
 auth = Blueprint('auth', __name__)
+
+# Estructura para almacenar intentos fallidos → en memoria por IP
+FAILED_LOGINS = {}
+
+# Configuración del bloqueo temporal
+MAX_FAILED_ATTEMPTS = 5
+BLOCK_TIME_SECONDS = 600  # 10 minutos bloqueado tras superar el límite
 
 # -----------------------
 # LOGIN
 # -----------------------
 
 @auth.route('/login', methods=['GET', 'POST'])
-@limiter.limit("10 per hour")  # Se limita esta ruta a un máximo de 10 solicitudes por hora por IP → Prevención de ataques de fuerza bruta
+@limiter.limit("10 per hour")  # Limite global por IP
 def login():
-    # Obtiene los datos enviados mediante POST en el formulario
-    data = request.form
-    print(data)  # SOLO para debug, debería eliminarse en producción
+    # Obtiene la IP del cliente
+    ip_address = request.remote_addr
 
-    # Si se envió el formulario
+    # Verificar si la IP está bloqueada
+    block_info = FAILED_LOGINS.get(ip_address)
+    if block_info:
+        failed_attempts, last_attempt_time = block_info
+
+        if failed_attempts >= MAX_FAILED_ATTEMPTS:
+            # Si está dentro del tiempo de bloqueo, rechazar
+            if time.time() - last_attempt_time < BLOCK_TIME_SECONDS:
+                flash("Too many failed login attempts. Try again later.", category='error')
+                return render_template("login.html", user=current_user)
+            else:
+                # Si pasó el tiempo de bloqueo, resetear intentos
+                FAILED_LOGINS[ip_address] = [0, 0]
+
+    # Procesar formulario de login
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Buscar en la base de datos el usuario que tiene ese email
         user = User.query.filter_by(email=email).first()
 
-        # Si no existe el usuario
+        # Usuario no existe
         if not user:
             flash('Email does not exist', category='error')
-            print('Email does not exist')
+            # Registrar intento fallido
+            FAILED_LOGINS[ip_address] = [FAILED_LOGINS.get(ip_address, [0, 0])[0] + 1, time.time()]
 
-        # Si el usuario está bloqueado
+        # Usuario bloqueado
         elif user.is_blocked:
             flash('This account has been blocked', category='error')
-            print('This account has been blocked')
 
-        # Si el usuario existe y no está bloqueado
+        # Usuario existe y no está bloqueado
         else:
-            # Verificar la contraseña (hasheada en la base de datos)
             if check_password_hash(user.password, password):
                 flash('Logged in successfully', category='success')
-                print('Logged in successfully')
 
-                # Iniciar sesión con el usuario → Esto crea una sesión
-                login_user(user, remember=True)  # El flag remember mantiene la sesión activa tras cerrar navegador (riesgo: cookies vulnerables)
+                # Iniciar sesión
+                login_user(user, remember=True)
 
-                # Registrar IP en LoginRecord para trazabilidad
-                ip_address = request.remote_addr  # Obtener IP del cliente
+                # Registrar IP en LoginRecord
                 login_record = LoginRecord(user_id=user.id, ip_address=ip_address)
                 db.session.add(login_record)
                 db.session.commit()
 
-                # Redirigir al home
+                # Reiniciar contador de fallos en caso de éxito
+                FAILED_LOGINS[ip_address] = [0, 0]
+
                 return redirect(url_for('views.home'))
 
             else:
                 flash('Incorrect password, try again', category='error')
-                print('Incorrect password, try again')
+                # Registrar intento fallido
+                FAILED_LOGINS[ip_address] = [FAILED_LOGINS.get(ip_address, [0, 0])[0] + 1, time.time()]
 
-    # Renderiza el formulario de login (o lo re-muestra si hubo errores)
     return render_template("login.html", user=current_user)
 
 # -----------------------
@@ -79,10 +101,10 @@ def login():
 # -----------------------
 
 @auth.route('/signup', methods=['GET', 'POST'])
+@limiter.limit("5 per minute")
 def sign_up():
     # Capturar datos del formulario
     data = request.form
-    print(data)  # SOLO para debug
 
     if request.method == 'POST':
         # Recoger los campos del formulario
@@ -92,30 +114,23 @@ def sign_up():
         password = request.form.get('password')
         password2 = request.form.get('password2')
 
-        print(name, surname, email, password, password2)  # SOLO para debug
-
         # Validación de datos
 
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists', category='error')
-            print('Email already exists')
 
         elif len(name) < 2:
             flash('First name must be at least 2 characters long', category='error')
-            print('First name must be at least 2 characters long')
 
         elif len(surname) < 2:
             flash('Last name must be at least 2 characters long', category='error')
-            print('Last name must be at least 2 characters long')
 
         elif password != password2:
             flash('Passwords do not match.', category='error')
-            print('Passwords do not match.')
 
         elif len(password) < 8:
             flash('Password must be at least 8 characters long', category='error')
-            print('Password must be at least 8 characters long')
 
         else:
             # Crear el usuario
@@ -129,7 +144,6 @@ def sign_up():
             db.session.commit()
 
             flash('Account created successfully', category='success')
-            print('Sign up successful')
 
             # Iniciar sesión
             login_user(new_user, remember=True)
