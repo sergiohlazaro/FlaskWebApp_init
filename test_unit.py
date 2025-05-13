@@ -44,39 +44,70 @@ def user(app):
     return user
 
 def test_signup_success(client):
-    # Prueba para registrar un usuario con datos válidos
+    """
+    TC-001: Registro exitoso con datos válidos.
+    """
     response = client.post("/signup", data={
-        "name": "Test", 
-        "surname": "User", 
-        "email": "testuser@example.com", 
-        "password": "password123", 
+        "name": "Test",
+        "surname": "User",
+        "email": "testuser@example.com",
+        "password": "password123",
         "password2": "password123"
     }, follow_redirects=True)
     assert b"Account created successfully" in response.data
 
 def test_signup_duplicate(client, user):
-    # Prueba para registrar un usuario con un email ya existente
+    """
+    TC-002: Registro con email duplicado.
+    """
     response = client.post("/signup", data={
-        "name": "Test", 
-        "surname": "User", 
-        "email": "unit@example.com", 
-        "password": "password123", 
+        "name": "Test",
+        "surname": "User",
+        "email": "unit@example.com",
+        "password": "password123",
         "password2": "password123"
     }, follow_redirects=True)
     assert b"Email already exists" in response.data
 
+def test_signup_password_mismatch(client):
+    """
+    TC-003: Registro con contraseñas que no coinciden.
+    """
+    response = client.post("/signup", data={
+        "name": "Test",
+        "surname": "User",
+        "email": "mismatch@example.com",
+        "password": "password123",
+        "password2": "password456"
+    }, follow_redirects=True)
+    assert b"Passwords do not match" in response.data
+
 # --------- LOGIN ---------
 
 def test_login_success(client, user):
-    # Prueba de login con credenciales correctas
+    """
+    TC-004: Inicio de sesión con credenciales correctas.
+    """
     response = client.post("/login", data={
         "email": user.email,
         "password": "password123"
     }, follow_redirects=True)
     assert b"Logged in successfully" in response.data
 
+def test_login_nonexistent_email(client):
+    """
+    TC-005: Intento de login con email no registrado.
+    """
+    response = client.post("/login", data={
+        "email": "noexist@example.com",
+        "password": "password123"
+    }, follow_redirects=True)
+    assert b"Email does not exist" in response.data
+
 def test_login_wrong_password(client, user):
-    # Prueba de login con contraseña incorrecta
+    """
+    TC-006: Login con contraseña incorrecta.
+    """
     response = client.post("/login", data={
         "email": user.email,
         "password": "wrongpassword"
@@ -86,7 +117,9 @@ def test_login_wrong_password(client, user):
 # --------- PUBLICACIONES ---------
 
 def test_create_valid_publication(client, user):
-    # Prueba para crear una publicación válida
+    """
+    TC-019: Crear publicación con contenido válido.
+    """
     client.post("/login", data={
         "email": user.email,
         "password": "password123"
@@ -97,7 +130,9 @@ def test_create_valid_publication(client, user):
     assert b"Publication added" in response.data
 
 def test_create_invalid_publication(client, user):
-    # Prueba para intentar crear una publicación vacía (inválida)
+    """
+    TC-020: Crear publicación vacía (inválida).
+    """
     client.post("/login", data={
         "email": user.email,
         "password": "password123"
@@ -110,7 +145,9 @@ def test_create_invalid_publication(client, user):
 # --------- MENSAJES ---------
 
 def test_send_message_nonexistent_user(client, user):
-    # Prueba para enviar un mensaje a un usuario inexistente
+    """
+    TC-024: Enviar mensaje a un usuario inexistente.
+    """
     client.post("/login", data={
         "email": user.email,
         "password": "password123"
@@ -124,7 +161,9 @@ def test_send_message_nonexistent_user(client, user):
 # --------- PERFIL ---------
 
 def test_update_bio_valid(client, user):
-    # Prueba para actualizar la bio con un texto válido
+    """
+    TC-016: Actualizar biografía con texto válido.
+    """
     client.post("/login", data={
         "email": user.email,
         "password": "password123"
@@ -135,7 +174,9 @@ def test_update_bio_valid(client, user):
     assert b"Your bio has been updated" in response.data
 
 def test_update_bio_too_long(client, user):
-    # Prueba para actualizar la bio con un texto demasiado largo
+    """
+    TC-017: Intento de actualizar la bio con más de 100 caracteres.
+    """
     client.post("/login", data={
         "email": user.email,
         "password": "password123"
@@ -149,6 +190,8 @@ def test_update_bio_too_long(client, user):
 # --------- ACCESO SIN LOGIN ---------
 
 def test_access_publications_without_login(client):
-    # Prueba para intentar acceder a publicaciones sin iniciar sesión
+    """
+    TC-008: Acceder a publicaciones sin iniciar sesión.
+    """
     response = client.get("/publications", follow_redirects=True)
-    assert b"Login" in response.data  # Comprobar que redirige a la página de login
+    assert b"Login" in response.data  # Verifica que se redirige a login
