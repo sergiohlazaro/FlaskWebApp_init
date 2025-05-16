@@ -19,14 +19,12 @@
     </p>
     {# Descripción breve del servicio → explica qué ofrece la plataforma (contexto para el usuario). #}
 
-    <div class="container" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-        {# Contenedor para centrar el logo → Flexbox centrado tanto vertical como horizontalmente #}
+    <div class="container" style="flex: 1; display: flex; justify-content: center; align-items: center; min-height: 400px;">
+        {# Contenedor ampliado para asegurar visibilidad completa del logo #}
         
         <a href="">
-            <img src="static/upm_logo.jpg" style="max-width: 200px; max-height: 200px;">
+            <img src="static/logo.jpg" style="max-width: 100%; max-height: 250px;">
         </a>
-        {# Imagen del logo de la UPM → se encuentra en la carpeta static y se limita su tamaño para mantener diseño limpio #}
-        {# El enlace <a href=""> está vacío → podría dirigirse en un futuro al portal oficial de la UPM o a otra página interna #}
     </div>
 
 {% endblock %}
