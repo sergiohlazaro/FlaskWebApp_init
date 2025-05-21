@@ -1,17 +1,11 @@
-# FlaskWebApp_init
-Flask Web App
--------------------------------
-## To correct or implement:
-
+# Flask Web App
 -------------------------------
 ## Default users for test:
-admin.admin@admin.com
-
-admin
+user: admin.admin@admin.com
+password: admin
 -------------------------------
-user1@user.com
-
-password1
+user: user1@user.com
+password: password1
 -------------------------------
 # My Cloud Website
 
