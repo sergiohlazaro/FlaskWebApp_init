@@ -59,15 +59,15 @@ La aplicación estará disponible en http://127.0.0.1:5000.
 
 ## 📁 Estructura del proyecto
 
-# ├── website/
-# │   ├── __init__.py           # Inicialización y configuración de la app
-# │   ├── models.py             # Definición de modelos de datos
-# │   ├── views.py              # Rutas y lógica del frontend
-# │   ├── auth.py               # Lógica de autenticación
-# │   ├── static/               # Archivos estáticos (CSS, JS, imágenes)
-# │   └── templates/            # Plantillas HTML (Jinja2)
-# ├── test_unit.py              # Pruebas unitarias
-# ├── test_integration.py       # Pruebas de integración
-# ├── main.py                   # Archivo principal de arranque
-# ├── requirements.txt          # Dependencias del proyecto
+## ├── website/
+## │   ├── __init__.py           # Inicialización y configuración de la app
+## │   ├── models.py             # Definición de modelos de datos
+## │   ├── views.py              # Rutas y lógica del frontend
+## │   ├── auth.py               # Lógica de autenticación
+## │   ├── static/               # Archivos estáticos (CSS, JS, imágenes)
+## │   └── templates/            # Plantillas HTML (Jinja2)
+## ├── test_unit.py              # Pruebas unitarias
+## ├── test_integration.py       # Pruebas de integración
+## ├── main.py                   # Archivo principal de arranque
+## ├── requirements.txt          # Dependencias del proyecto
 
