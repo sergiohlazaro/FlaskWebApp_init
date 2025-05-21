@@ -1,10 +1,8 @@
 # FlaskWebApp_init
-Initial Flask web app
+Flask Web App
 -------------------------------
 ## To correct or implement:
-- Logging en los casos importantes:
-import logging
-logging.info("Login attempt failed for email %s", email)
+
 -------------------------------
 ## Default users for test:
 admin.admin@admin.com
@@ -15,55 +13,67 @@ user1@user.com
 
 password1
 -------------------------------
-sergio.hlazaro@alumnos.upm.es
+# My Cloud Website
 
-password1234
--------------------------------
-## Pruebas Unitarias
-## Descripción
-- Este conjunto de pruebas unitarias está diseñado para verificar el correcto funcionamiento de las principales funcionalidades de la aplicación web desarrollada.
-- Las pruebas son ejecutadas utilizando pytest y una base de datos SQLite en memoria, lo que garantiza que son rápidas y no afectan a los datos reales.
+**My Cloud Website** es una plataforma web desarrollada como parte de un Trabajo de Fin de Grado en Ingeniería Informática en la Universidad Politécnica de Madrid. Esta aplicación permite a estudiantes y miembros de una comunidad universitaria registrarse, compartir publicaciones, enviar mensajes privados y gestionar su perfil en un entorno seguro, accesible y colaborativo.
 
-### ¿Qué cubren las pruebas?
-- Las pruebas están organizadas en distintas categorías que reflejan las funcionalidades clave de la aplicación:
+## 🧩 Características principales
 
-### Autenticación
-- Registro exitoso de usuario.
+- Autenticación y autorización de usuarios
+- Gestión de perfiles con biografía, foto y redes sociales
+- Publicaciones con texto y archivos adjuntos
+- Sistema de mensajería interna entre usuarios
+- Panel de administración para gestión de cuentas
+- Seguridad: CSRF, cifrado de contraseñas, XSS cleaning, rate limiting
+- Registro de actividad de login por IP
+- Cookies técnicas con política de privacidad y aviso legal
 
-- Prevención de registros duplicados por email.
+## 🚀 Instalación
 
-- Inicio de sesión exitoso.
+1. **Clona el repositorio:**
 
-- Prevención de inicio de sesión con contraseñas incorrectas.
+   ```bash
+   git clone https://github.com/tu-usuario/my-cloud-website.git
+   cd my-cloud-website
 
-### Publicaciones
-- Creación de publicaciones válidas.
+2. **Crea un entorno virtual (opcional pero recomendado):**
 
-- Prevención de publicaciones vacías.
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # En Windows: venv\Scripts\activate
 
-### Mensajes
-- Prevención de envío de mensajes a usuarios inexistentes.
+3. **Instala las dependencias:**
 
-### Perfil
-- Actualización de bio con contenido válido.
+    ```bash
+    pip install -r requirements.txt
 
-- Prevención de actualización de bio demasiado larga.
+4. **Inicia la aplicación:**
 
-### Seguridad / Acceso
-- Acceso no autorizado a publicaciones redirige al login.
+    ```bash
+    python main.py
 
-### Notas importantes
-- La base de datos se crea en memoria para cada ejecución de las pruebas. Esto significa que siempre está limpia.
+La aplicación estará disponible en http://127.0.0.1:5000.
 
-- No se crean usuarios iniciales automáticos gracias a la condición if not app.config.get("TESTING") en __init__.py.
+## 🛠️ Tecnologías utilizadas
 
-- CSRF desactivado en pruebas para simplificar las peticiones POST.
+- Backend: Python, Flask, SQLAlchemy
+- Frontend: Jinja2, Bootstrap (Lux Theme)
+- Base de datos: SQLite
+- Seguridad: Flask-WTF, CSRFProtect, Rate Limiting, Sanitización con Bleach
+- Testing: Pytest
+- Caché y compresión: Flask-Caching, Flask-Compress
 
-- Login simulado para pruebas que requieren autenticación.
+## 📁 Estructura del proyecto
 
-- Mensajes flash y respuestas HTML evaluados por contenido para validar resultados.
-
-### Conclusión
-- Estas pruebas garantizan que los componentes individuales de la aplicación funcionan correctamente y que los errores comunes están controlados.
-- Además, permiten detectar errores de forma rápida durante el desarrollo y previenen regresiones cuando se realizan cambios en el código.
+├── website/
+│   ├── __init__.py           # Inicialización y configuración de la app
+│   ├── models.py             # Definición de modelos de datos
+│   ├── views.py              # Rutas y lógica del frontend
+│   ├── auth.py               # Lógica de autenticación
+│   ├── static/               # Archivos estáticos (CSS, JS, imágenes)
+│   └── templates/            # Plantillas HTML (Jinja2)
+├── test_unit.py              # Pruebas unitarias
+├── test_integration.py       # Pruebas de integración
+├── main.py                   # Archivo principal de arranque
+├── requirements.txt          # Dependencias del proyecto
 
