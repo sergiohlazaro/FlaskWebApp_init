@@ -287,3 +287,14 @@
 2025-05-16 19:15:57,072 [INFO] 127.0.0.1 - - [16/May/2025 19:15:57] "[32mGET /logout HTTP/1.1[0m" 302 -
 2025-05-16 19:15:57,081 [INFO] 127.0.0.1 - - [16/May/2025 19:15:57] "GET /login?next=/logout HTTP/1.1" 200 -
 2025-05-16 19:15:57,109 [INFO] 127.0.0.1 - - [16/May/2025 19:15:57] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-05-21 13:23:27,539 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-21 13:23:27,540 [INFO] [33mPress CTRL+C to quit[0m
+2025-05-21 13:23:27,542 [INFO]  * Restarting with stat
+2025-05-21 13:23:28,555 [WARNING]  * Debugger is active!
+2025-05-21 13:23:28,556 [INFO]  * Debugger PIN: 326-974-365
+2025-05-21 13:23:37,415 [INFO] 127.0.0.1 - - [21/May/2025 13:23:37] "GET / HTTP/1.1" 200 -
+2025-05-21 13:23:37,923 [INFO] 127.0.0.1 - - [21/May/2025 13:23:37] "[36mGET /static/index.js HTTP/1.1[0m" 304 -
+2025-05-21 13:23:38,405 [INFO] 127.0.0.1 - - [21/May/2025 13:23:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-21 13:27:49,348 [INFO] 127.0.0.1 - - [21/May/2025 13:27:49] "GET / HTTP/1.1" 200 -
+2025-05-21 13:27:49,422 [INFO] 127.0.0.1 - - [21/May/2025 13:27:49] "[36mGET /static/index.js HTTP/1.1[0m" 304 -

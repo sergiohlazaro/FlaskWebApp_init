@@ -11,4 +11,4 @@ app = create_app()
 if __name__ == '__main__':
     # Inicia el servidor de desarrollo de Flask
     # debug=True → Esto permite reinicio automático al detectar cambios en el código + muestra errores detallados en navegador
-    app.run(debug=True)
+    app.run(debug=False)
